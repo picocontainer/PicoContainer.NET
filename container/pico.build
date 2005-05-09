@@ -1,0 +1,89 @@
+<project name="Pico" default="dist" basedir=".">
+	<property name="build.dir" value="build"/>
+	<property name="build.debug" value="true"/>
+	<property name="build.doc" value=""/>
+
+	<target name="clean">
+		<delete dir="src/bin" failonerror="false"/>
+		<delete dir="src/obj" failonerror="false"/>
+		<delete dir="src/Test/bin" failonerror="false"/>
+		<delete dir="src/Test/obj" failonerror="false"/>
+		<delete dir="PicoContainer.resharper" failonerror="false"/>
+	</target>
+
+
+	<target name="dist">
+		<property name="build.dir" value="dist"/>
+		<property name="build.debug" value="false"/>
+		<property name="build.doc" value="dist/PicoContainer.xml"/>
+	        <call target="compile" />
+	        <call target="userdoc" />
+	</target>
+
+	<target name="userdoc" depends="compile">
+        <ndoc>
+            <assemblies basedir="${build.dir}">
+                <includes name="PicoContainer.dll"/>
+            </assemblies>
+            <documenters>
+		 <documenter name="MSDN">
+                    <property name="OutputDirectory" value="${build.dir}/doc/api"/>                                                     
+                        <property name="HtmlHelpName" value="PicoContainer" />
+                        <property name="HtmlHelpCompilerFilename" value="hhc.exe" />
+                        <property name="IncludeFavorites" value="False" />
+                        <property name="Title" value="PicoContainer" />
+                        <property name="SplitTOCs" value="False" />
+                        <property name="DefaulTOC" value="" />
+                        <property name="ShowVisualBasic" value="True" />
+                        <property name="ShowMissingSummaries" value="False" />
+                        <property name="ShowMissingRemarks" value="False" />
+                        <property name="ShowMissingParams" value="False" />
+                        <property name="ShowMissingReturns" value="False" />
+                        <property name="ShowMissingValues" value="False" />
+                        <property name="DocumentInternals" value="False" />
+                        <property name="DocumentProtected" value="False" />
+                        <property name="DocumentPrivates" value="False" />
+                        <property name="DocumentEmptyNamespaces" value="False" />
+                        <property name="IncludeAssemblyVersion" value="False" />
+                        <property name="CopyrightText" value="" />
+                        <property name="CopyrightHref" value="" />
+                     </documenter>
+            </documenters>
+        </ndoc>
+    </target>
+
+	<target name="compile">
+		<mkdir dir="${build.dir}"/>
+		<csc doc="${build.doc}" target="library" output="${build.dir}\PicoContainer.dll" debug="${build.debug}">
+			<sources basedir="src">
+				<includes name="**.cs"/>
+				<excludes name="Test\**"/>				
+			</sources>
+			<references>
+				<includes name="lib\*.dll"/>
+			</references>
+			<arg value="/nowarn:1591"/> <!-- don't warn about uncommented public methods -->
+		</csc>
+	</target>
+
+	<target name="test" depends="compile">
+		<copy file="lib\nunit.framework.dll" todir="${build.dir}"/> 
+		<csc target="library" output="${build.dir}\PicoContainerTests.dll" debug="${build.debug}">
+			<sources basedir="src">
+				<includes name="Test\**\*.cs"/>				
+			</sources>
+			<references>
+				<includes name="build\PicoContainer.dll"/>			
+				<includes name="lib\nunit.framework.dll"/>
+				<includes name="lib\*.dll"/>
+			</references>
+			<arg value="/nowarn:1591"/> <!-- don't warn about uncommented public methods -->
+		</csc>
+
+		<exec program="lib\nunit-console.exe" commandline="${build.dir}\PicoContainerTests.dll"/>
+		<delete file="${build.dir}\nunit.framework.dll"/> 
+
+	</target>
+	
+	<target name="all" depends="clean, compile, test"/>
+</project>

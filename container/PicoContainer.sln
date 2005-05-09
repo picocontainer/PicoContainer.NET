@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicoContainer", "src\PicoContainer\PicoContainer.csproj", "{78D4D840-D376-4FB7-89A6-B24C22E057F7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicoContainer.Tests", "src\PicoContainer.Tests\PicoContainer.Tests.csproj", "{60B1A189-2ADB-4E4B-9952-B4E8748065BF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{78D4D840-D376-4FB7-89A6-B24C22E057F7}.Debug.ActiveCfg = Debug|.NET
+		{78D4D840-D376-4FB7-89A6-B24C22E057F7}.Debug.Build.0 = Debug|.NET
+		{78D4D840-D376-4FB7-89A6-B24C22E057F7}.Release.ActiveCfg = Release|.NET
+		{78D4D840-D376-4FB7-89A6-B24C22E057F7}.Release.Build.0 = Release|.NET
+		{60B1A189-2ADB-4E4B-9952-B4E8748065BF}.Debug.ActiveCfg = Debug|.NET
+		{60B1A189-2ADB-4E4B-9952-B4E8748065BF}.Debug.Build.0 = Debug|.NET
+		{60B1A189-2ADB-4E4B-9952-B4E8748065BF}.Release.ActiveCfg = Release|.NET
+		{60B1A189-2ADB-4E4B-9952-B4E8748065BF}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
