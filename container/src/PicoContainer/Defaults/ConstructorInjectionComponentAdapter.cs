@@ -58,6 +58,15 @@ namespace PicoContainer.Defaults
 		{
 		}
 
+		/// <summary>
+		/// Use the component implemantation type as the key as well
+		/// </summary>
+		/// <param name="componentImplementation"></param>
+		public ConstructorInjectionComponentAdapter(Type componentImplementation)
+			: this(componentImplementation, componentImplementation)
+		{
+		}
+
 		public override object GetComponentInstance(IPicoContainer container)
 		{
 			if(constructorInjectionGuard == null)

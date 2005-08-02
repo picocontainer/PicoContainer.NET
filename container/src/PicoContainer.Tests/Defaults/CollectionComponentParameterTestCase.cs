@@ -84,7 +84,7 @@ namespace PicoContainer.Defaults
 		public void CollectionsAreGeneratedOnTheFly()
 		{
 			IMutablePicoContainer mpc = new DefaultPicoContainer();
-			mpc.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (Bowl), typeof (Bowl)));
+			mpc.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (Bowl)));
 			mpc.RegisterComponentImplementation(typeof (Cod));
 			Bowl bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
 			Assert.AreEqual(1, bowl.cods.Length);

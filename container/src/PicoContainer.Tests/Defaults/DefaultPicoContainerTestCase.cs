@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NUnit.Framework;
 using PicoContainer;
@@ -132,9 +133,12 @@ namespace PicoContainer.Defaults
 		{
 			DefaultPicoContainer picoContainer = new DefaultPicoContainer();
 			picoContainer.RegisterComponentImplementation(typeof (Service));
-			picoContainer.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (TransientComponent), typeof (TransientComponent)));
-			TransientComponent c1 = (TransientComponent) picoContainer.GetComponentInstance(typeof (TransientComponent));
-			TransientComponent c2 = (TransientComponent) picoContainer.GetComponentInstance(typeof (TransientComponent));
+			
+			Type transientComponentType = typeof (TransientComponent);
+
+			picoContainer.RegisterComponent(new ConstructorInjectionComponentAdapter(transientComponentType));
+			TransientComponent c1 = picoContainer.GetComponentInstance(transientComponentType) as TransientComponent;
+			TransientComponent c2 = picoContainer.GetComponentInstance(transientComponentType) as TransientComponent;
 			Assert.IsFalse(c1 == c2);
 			Assert.AreSame(c1.service, c2.service);
 		}

@@ -258,7 +258,7 @@ namespace PicoContainer.Tck
 				Assert.AreEqual(org[x], new ArrayList(picoContainer.ComponentAdapters).ToArray()[x]);
 			}
 
-			object o = picoContainer.ComponentInstances; // create all the instances at once
+			Assert.IsNotNull(picoContainer.ComponentInstances); // create all the instances at once
 			Assert.IsFalse(picoContainer.ComponentInstances[0] is MyString);
 			Assert.IsTrue(picoContainer.ComponentInstances[1] is MyString);
 
@@ -275,7 +275,7 @@ namespace PicoContainer.Tck
 				Assert.AreEqual(org[x], new ArrayList(reversedPicoContainer.ComponentAdapters).ToArray()[x]);
 			}
 
-			object o1 = reversedPicoContainer.ComponentInstances; // create all the instances at once
+			Assert.IsNotNull(reversedPicoContainer.ComponentInstances); // create all the instances at once
 			Assert.IsTrue(reversedPicoContainer.ComponentInstances[0] is MyString);
 			Assert.IsFalse(reversedPicoContainer.ComponentInstances[1] is MyString);
 		}

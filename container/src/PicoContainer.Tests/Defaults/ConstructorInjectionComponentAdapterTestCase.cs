@@ -41,7 +41,7 @@ namespace PicoContainer.Defaults
 		protected override IComponentAdapter prepDEF_verifyDoesNotInstantiate(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentImplementation(typeof (A));
-			return new ConstructorInjectionComponentAdapter(typeof (B), typeof (B));
+			return new ConstructorInjectionComponentAdapter(typeof (B));
 		}
 
 		protected IComponentAdapter prepDEF_visitable()
@@ -60,7 +60,7 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepSER_isSerializable(IMutablePicoContainer picoContainer)
 		{
-			return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable), typeof (SimpleTouchable));
+			return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable));
 		}
 
 		public class NamedDependsOnTouchable
@@ -73,12 +73,12 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepVER_verificationFails(IMutablePicoContainer picoContainer)
 		{
-			return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable), typeof (DependsOnTouchable));
+			return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable));
 		}
 
 		protected override IComponentAdapter prepINS_createsNewInstances(IMutablePicoContainer picoContainer)
 		{
-			return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable), typeof (SimpleTouchable));
+			return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable));
 		}
 
 		public class Erroneous
@@ -91,7 +91,7 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepINS_errorIsRethrown(IMutablePicoContainer picoContainer)
 		{
-			return new ConstructorInjectionComponentAdapter(typeof (Erroneous), typeof (Erroneous));
+			return new ConstructorInjectionComponentAdapter(typeof (Erroneous));
 		}
 
 		public class RuntimeThrowing
@@ -104,7 +104,7 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepINS_systemExceptionIsRethrown(IMutablePicoContainer picoContainer)
 		{
-			return new ConstructorInjectionComponentAdapter(typeof (RuntimeThrowing), typeof (RuntimeThrowing));
+			return new ConstructorInjectionComponentAdapter(typeof (RuntimeThrowing));
 		}
 
 
@@ -118,13 +118,13 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepINS_normalExceptionIsRethrownInsidePicoInvocationTargetInitializationException(IMutablePicoContainer picoContainer)
 		{
-			return new ConstructorInjectionComponentAdapter(typeof (NormalExceptionThrowing), typeof (NormalExceptionThrowing));
+			return new ConstructorInjectionComponentAdapter(typeof (NormalExceptionThrowing));
 		}
 
 		protected override IComponentAdapter prepRES_dependenciesAreResolved(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentImplementation(typeof (SimpleTouchable));
-			return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable), typeof (DependsOnTouchable));
+			return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable));
 		}
 
 		public class C1
@@ -145,7 +145,7 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepRES_failingVerificationWithCyclicDependencyException(IMutablePicoContainer picoContainer)
 		{
-			IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1), typeof (C1));
+			IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1));
 			picoContainer.RegisterComponent(componentAdapter);
 			picoContainer.RegisterComponentImplementation(typeof (C2), typeof (C2));
 			return componentAdapter;
@@ -153,7 +153,7 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepRES_failingInstantiationWithCyclicDependencyException(IMutablePicoContainer picoContainer)
 		{
-			IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1), typeof (C1));
+			IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1));
 			picoContainer.RegisterComponent(componentAdapter);
 			picoContainer.RegisterComponentImplementation(typeof (C2), typeof (C2));
 			return componentAdapter;

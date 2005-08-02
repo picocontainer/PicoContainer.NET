@@ -40,7 +40,7 @@ namespace PicoContainer.Defaults
 		{
 			DefaultPicoContainer picoContainer = new DefaultPicoContainer();
 			picoContainer.RegisterComponentImplementation(typeof (Service));
-			picoContainer.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (TransientComponent), typeof (TransientComponent)));
+			picoContainer.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (TransientComponent)));
 			TransientComponent c1 = (TransientComponent) picoContainer.GetComponentInstance(typeof (TransientComponent));
 			TransientComponent c2 = (TransientComponent) picoContainer.GetComponentInstance(typeof (TransientComponent));
 			Assert.IsFalse(c1.Equals(c2));
