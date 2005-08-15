@@ -31,6 +31,21 @@ namespace PicoContainer.Defaults
 		[NonSerialized] private IList setters;
 		[NonSerialized] private Type[] setterTypes;
 
+		public SetterInjectionComponentAdapter(Type componentImplementation) 
+			: this(componentImplementation, componentImplementation)
+		{
+		}
+
+		public SetterInjectionComponentAdapter(object componentKey, Type componentImplementation) 
+			: this(componentKey, componentImplementation, null)
+		{
+		}
+
+		public SetterInjectionComponentAdapter(Type componentImplementation, IParameter[] parameters) 
+			: this(componentImplementation, componentImplementation, parameters)
+		{
+		}
+
 		public SetterInjectionComponentAdapter(object componentKey,
 		                                       Type componentImplementation,
 		                                       IParameter[] parameters,

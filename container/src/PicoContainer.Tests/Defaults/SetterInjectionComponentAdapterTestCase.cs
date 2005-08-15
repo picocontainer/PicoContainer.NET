@@ -24,7 +24,7 @@ namespace PicoContainer.Defaults
 
 		protected override IComponentAdapter prepDEF_verifyWithoutDependencyWorks(IMutablePicoContainer picoContainer)
 		{
-			return new SetterInjectionComponentAdapter(typeof (PersonBean), typeof (PersonBean), new IParameter[]
+			return new SetterInjectionComponentAdapter(typeof (PersonBean), new IParameter[]
 				{
 					new ConstantParameter(
 						"Pico Container")
@@ -34,12 +34,12 @@ namespace PicoContainer.Defaults
 		protected override IComponentAdapter prepDEF_verifyDoesNotInstantiate(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
-			return new SetterInjectionComponentAdapter(typeof (DeadBody), typeof (DeadBody), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (DeadBody), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		protected IComponentAdapter prepDEF_visitable()
 		{
-			return new SetterInjectionComponentAdapter(typeof (PersonBean), typeof (PersonBean), new IParameter[]
+			return new SetterInjectionComponentAdapter(typeof (PersonBean), new IParameter[]
 				{
 					new ConstantParameter(
 						"Pico Container")
@@ -49,7 +49,7 @@ namespace PicoContainer.Defaults
 		protected override IComponentAdapter prepSER_isSerializable(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
-			return new SetterInjectionComponentAdapter(typeof (PersonBean), typeof (PersonBean), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (PersonBean), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		protected IComponentAdapter prepDEF_isAbleToTakeParameters(IMutablePicoContainer picoContainer)
@@ -85,7 +85,7 @@ namespace PicoContainer.Defaults
 		protected override IComponentAdapter prepINS_createsNewInstances(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
-			return new SetterInjectionComponentAdapter(typeof (PersonBean), typeof (PersonBean), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (PersonBean), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		public class Ghost : PersonBean
@@ -99,7 +99,7 @@ namespace PicoContainer.Defaults
 		protected override IComponentAdapter prepINS_errorIsRethrown(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
-			return new SetterInjectionComponentAdapter(typeof (Ghost), typeof (Ghost), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (Ghost), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		public class DeadBody
@@ -114,7 +114,7 @@ namespace PicoContainer.Defaults
 		protected override IComponentAdapter prepINS_systemExceptionIsRethrown(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
-			return new SetterInjectionComponentAdapter(typeof (DeadBody), typeof (DeadBody), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (DeadBody), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		public class HidingPersion
@@ -130,15 +130,14 @@ namespace PicoContainer.Defaults
 			IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
-			return new SetterInjectionComponentAdapter(
-				typeof (HidingPersion), typeof (HidingPersion), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (HidingPersion), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		protected override IComponentAdapter prepRES_dependenciesAreResolved(IMutablePicoContainer picoContainer)
 		{
 			picoContainer.RegisterComponentInstance("Pico Container");
 			picoContainer.RegisterComponentImplementation(typeof (PersonBean));
-			return new SetterInjectionComponentAdapter(typeof (PurseBean), typeof (PurseBean), new IParameter[] {ComponentParameter.DEFAULT});
+			return new SetterInjectionComponentAdapter(typeof (PurseBean), new IParameter[] {ComponentParameter.DEFAULT});
 		}
 
 		public class WealthyPerson : PersonBean
@@ -157,7 +156,7 @@ namespace PicoContainer.Defaults
 			picoContainer.RegisterComponentInstance("Pico Container");
 			picoContainer.RegisterComponentImplementation(typeof (PersonBean), typeof (WealthyPerson));
 			return picoContainer.RegisterComponent(new SetterInjectionComponentAdapter(
-				typeof (PurseBean), typeof (PurseBean), new IParameter[] {ComponentParameter.DEFAULT}));
+				typeof (PurseBean), new IParameter[] {ComponentParameter.DEFAULT}));
 		}
 
 		protected override IComponentAdapter prepRES_failingInstantiationWithCyclicDependencyException(IMutablePicoContainer picoContainer)
@@ -165,7 +164,7 @@ namespace PicoContainer.Defaults
 			picoContainer.RegisterComponentInstance("Pico Container");
 			picoContainer.RegisterComponentImplementation(typeof (PersonBean), typeof (WealthyPerson));
 			return picoContainer.RegisterComponent(new SetterInjectionComponentAdapter(
-				typeof (PurseBean), typeof (PurseBean), new IParameter[] {ComponentParameter.DEFAULT}));
+				typeof (PurseBean), new IParameter[] {ComponentParameter.DEFAULT}));
 		}
 
 		public class A
@@ -200,8 +199,8 @@ namespace PicoContainer.Defaults
 		[Test]
 		public void AllUnsatisfiableDependenciesAreSignalled()
 		{
-			SetterInjectionComponentAdapter aAdapter = new SetterInjectionComponentAdapter("a", typeof (A), null);
-			SetterInjectionComponentAdapter bAdapter = new SetterInjectionComponentAdapter("b", typeof (B), null);
+			SetterInjectionComponentAdapter aAdapter = new SetterInjectionComponentAdapter("a", typeof (A));
+			SetterInjectionComponentAdapter bAdapter = new SetterInjectionComponentAdapter("b", typeof (B));
 
 			IMutablePicoContainer pico = new DefaultPicoContainer();
 			pico.RegisterComponent(bAdapter);
@@ -257,9 +256,9 @@ namespace PicoContainer.Defaults
 		[Test]
 		public void HybridBeans()
 		{
-			SetterInjectionComponentAdapter bAdapter = new SetterInjectionComponentAdapter("b", typeof (B), null);
-			SetterInjectionComponentAdapter cAdapter = new SetterInjectionComponentAdapter("c", typeof (C), null);
-			SetterInjectionComponentAdapter cNullAdapter = new SetterInjectionComponentAdapter("c0", typeof (C), null);
+			SetterInjectionComponentAdapter bAdapter = new SetterInjectionComponentAdapter("b", typeof (B));
+			SetterInjectionComponentAdapter cAdapter = new SetterInjectionComponentAdapter("c", typeof (C));
+			SetterInjectionComponentAdapter cNullAdapter = new SetterInjectionComponentAdapter("c0", typeof (C));
 
 			IMutablePicoContainer pico = new DefaultPicoContainer();
 			pico.RegisterComponent(bAdapter);
