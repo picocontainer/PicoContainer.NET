@@ -17,7 +17,7 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class DuplicateComponentKeyRegistrationException : PicoRegistrationException
     {
-        private object key;
+        private readonly object key;
 
         public DuplicateComponentKeyRegistrationException(object key)
         {

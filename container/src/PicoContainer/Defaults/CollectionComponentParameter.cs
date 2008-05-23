@@ -223,7 +223,7 @@ namespace PicoContainer.Defaults
             return adapterMap;
         }
 
-        private Type GetCollectionType(Type collectionType)
+        private static Type GetCollectionType(Type collectionType)
         {
             Type collectionClass = null;
             if (collectionType.IsArray)
@@ -251,7 +251,7 @@ namespace PicoContainer.Defaults
             return valueType;
         }
 
-        private object[] GetArrayInstance(IPicoContainer container, Type expectedType, IDictionary adapterList)
+        private static object[] GetArrayInstance(IPicoContainer container, Type expectedType, IDictionary adapterList)
         {
             object[] result = (object[]) Array.CreateInstance(expectedType.GetElementType(), adapterList.Count);
             int i = 0;
@@ -265,7 +265,7 @@ namespace PicoContainer.Defaults
             return result;
         }
 
-        private ICollection GetCollectionInstance(IPicoContainer container, Type expectedType, IDictionary adapterList)
+        private static ICollection GetCollectionInstance(IPicoContainer container, Type expectedType, IDictionary adapterList)
         {
             Type collectionType = expectedType;
             if (collectionType.IsInterface)
@@ -307,7 +307,7 @@ namespace PicoContainer.Defaults
             }
         }
 
-        private IDictionary GetDictionaryInstance(IPicoContainer container, Type expectedType, IDictionary adapterList)
+        private static IDictionary GetDictionaryInstance(IPicoContainer container, Type expectedType, IDictionary adapterList)
         {
             Type collectionType = expectedType;
             if (collectionType.IsInterface)

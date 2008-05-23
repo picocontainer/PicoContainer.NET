@@ -20,7 +20,7 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class CachingComponentAdapter : DecoratingComponentAdapter
     {
-        private IObjectReference instanceReference;
+        private readonly IObjectReference instanceReference;
 
         /// <summary>
         /// Constructor

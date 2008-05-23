@@ -4,7 +4,7 @@ namespace PicoContainer.Defaults
 {
     public class SetterInjectionComponentAdapterFactory : IComponentAdapterFactory
     {
-        private bool allowNonPublicClasses;
+        private readonly bool allowNonPublicClasses;
 
         public SetterInjectionComponentAdapterFactory(bool allowNonPublicClasses)
         {
@@ -15,8 +15,6 @@ namespace PicoContainer.Defaults
         {
         }
 
-        #region IComponentAdapterFactory Members
-
         public IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation,
                                                         IParameter[] parameters)
         {
@@ -24,7 +22,5 @@ namespace PicoContainer.Defaults
                 new SetterInjectionComponentAdapter(componentKey, componentImplementation, parameters,
                                                     allowNonPublicClasses);
         }
-
-        #endregion
     }
 }

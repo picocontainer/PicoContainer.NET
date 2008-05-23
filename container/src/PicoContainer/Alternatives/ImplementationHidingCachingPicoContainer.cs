@@ -9,8 +9,8 @@ namespace PicoContainer.Alternatives
     [Serializable]
     public class ImplementationHidingCachingPicoContainer : AbstractDelegatingMutablePicoContainer
     {
-        private CachingComponentAdapterFactory caf;
-        private ILifecycleManager lifecycleManager;
+        private readonly CachingComponentAdapterFactory caf;
+        private readonly ILifecycleManager lifecycleManager;
 
         /// <summary>
         /// Creates a new container with a parent container.

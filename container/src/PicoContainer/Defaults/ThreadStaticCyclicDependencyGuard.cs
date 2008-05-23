@@ -45,7 +45,7 @@ namespace PicoContainer.Defaults
             {
                 throw new CyclicDependencyException(stackFrame);
             }
-            Object result = null;
+            Object result;
 
             try
             {

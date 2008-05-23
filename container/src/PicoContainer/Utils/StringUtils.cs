@@ -17,7 +17,7 @@ namespace PicoContainer.Utils
 
             for (int i = 0; i < array.Length; i++)
             {
-                retval = retval + array[i].ToString();
+                retval = retval + array[i];
                 if (i + 1 < array.Length)
                 {
                     retval += ",";

@@ -19,7 +19,7 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class DecoratingComponentAdapter : IComponentAdapter
     {
-        private IComponentAdapter theDelegate;
+        private readonly IComponentAdapter theDelegate;
 
         /// <summary>
         /// Constructor

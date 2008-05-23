@@ -18,8 +18,6 @@ namespace PicoContainer.Monitors
             this.writer = writer;
         }
 
-        #region IComponentMonitor Members
-
         public void Instantiating(ConstructorInfo constructor)
         {
             writer.WriteLine("PicoContainer: instantiating {0}", constructor.DeclaringType.FullName);
@@ -63,6 +61,5 @@ namespace PicoContainer.Monitors
                              e.Message);
         }
 
-        #endregion
     }
 }

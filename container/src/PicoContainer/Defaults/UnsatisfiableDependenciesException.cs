@@ -14,18 +14,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using PicoContainer.Utils;
 
-/**
- * @author Aslak Helles&oslash;y
- * @version $Revision$
- */
-
 namespace PicoContainer.Defaults
 {
     [Serializable]
     public class UnsatisfiableDependenciesException : PicoIntrospectionException
     {
-        private IList failedDependencies;
-        private IComponentAdapter instantiatingComponentAdapter;
+        private readonly IList failedDependencies;
+        private readonly IComponentAdapter instantiatingComponentAdapter;
 
         public UnsatisfiableDependenciesException(IComponentAdapter instantiatingComponentAdapter,
                                                   IList failedDependencies)

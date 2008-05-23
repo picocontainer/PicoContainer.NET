@@ -162,7 +162,7 @@ namespace PicoContainer.Defaults
         [Serializable]
         protected class SetterInjectionGuard : ThreadStaticCyclicDependencyGuard
         {
-            private IPicoContainer guardedContainer;
+            private readonly IPicoContainer guardedContainer;
             private SetterInjectionComponentAdapter sica;
 
             public SetterInjectionGuard(IPicoContainer guardedContainer, SetterInjectionComponentAdapter sica)

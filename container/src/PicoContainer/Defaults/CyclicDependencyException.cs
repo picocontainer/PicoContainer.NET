@@ -18,7 +18,7 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class CyclicDependencyException : PicoInitializationException
     {
-        private Stack stack;
+        private readonly Stack stack;
 
         public CyclicDependencyException(Type element) : base((Exception) null)
         {

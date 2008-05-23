@@ -12,7 +12,7 @@ namespace PicoContainer.Defaults
     {
         protected static MethodInfo disposeMethod;
 
-        private static object[] emptyArray = new object[0];
+        private static readonly object[] emptyArray = new object[0];
         protected static MethodInfo startMethod;
         protected static MethodInfo stopMethod;
         protected IComponentMonitor componentMonitor;

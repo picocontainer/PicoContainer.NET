@@ -16,8 +16,8 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class ConstructorInjectionComponentAdapterFactory : IComponentAdapterFactory
     {
-        private bool allowNonPublicClasses;
-        private IComponentMonitor componentMonitor;
+        private readonly bool allowNonPublicClasses;
+        private readonly IComponentMonitor componentMonitor;
 
         public ConstructorInjectionComponentAdapterFactory(bool allowNonPublicClasses,
                                                            IComponentMonitor componentMonitor)

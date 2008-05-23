@@ -23,7 +23,7 @@ namespace PicoContainer.Defaults
     public class AmbiguousComponentResolutionException : PicoIntrospectionException
     {
         private readonly object[] ambiguousComponentKeys;
-        private Type ambiguousType;
+        private readonly Type ambiguousType;
         private Type component;
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace PicoContainer.Alternatives
     [Serializable]
     public class ImplementationHidingComponentAdapter : DecoratingComponentAdapter
     {
-        private bool strict = false;
+        private readonly bool strict = false;
 
         public ImplementationHidingComponentAdapter(IComponentAdapter theDelegate, bool strict) : base(theDelegate)
         {
@@ -32,7 +32,7 @@ namespace PicoContainer.Alternatives
         public override Object GetComponentInstance(IPicoContainer container)
         {
             Object componentKey = Delegate.ComponentKey;
-            Type[] types = null;
+            Type[] types;
             if (componentKey is Type && ((Type) Delegate.ComponentKey).IsInterface)
             {
                 types = new Type[] {(Type) Delegate.ComponentKey};

@@ -6,37 +6,32 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class BasicComponentParameter : IParameter
     {
-        private object componentKey;
+        private readonly object componentKey;
 
         /**
-		 * Expect a parameter matching a component of a specific key.
-		 * 
-		 * @param componentKey the key of the desired component
-		 */
-
+         * Expect a parameter matching a component of a specific key.
+         * 
+         * @param componentKey the key of the desired component
+         */
         public BasicComponentParameter(Object componentKey)
         {
             this.componentKey = componentKey;
         }
 
         /**
-		 * Expect any paramter of the appropriate type.
-		 */
-
+         * Expect any paramter of the appropriate type.
+         */
         public BasicComponentParameter()
         {
         }
 
         /**
-		 * Check wether the given Parameter can be statisfied by the container.
-		 * 
-		 * @return <code>true</code> if the Parameter can be verified.
-		 * @see org.picocontainer.Parameter#isResolvable(org.picocontainer.PicoContainer,
-		 *           org.picocontainer.ComponentAdapter, java.lang.Class)
-		 */
-
-        #region IParameter Members
-
+         * Check wether the given Parameter can be statisfied by the container.
+         * 
+         * @return <code>true</code> if the Parameter can be verified.
+         * @see org.picocontainer.Parameter#isResolvable(org.picocontainer.PicoContainer,
+         *           org.picocontainer.ComponentAdapter, java.lang.Class)
+         */
         public virtual bool IsResolvable(IPicoContainer container, IComponentAdapter adapter, Type expectedType)
         {
             return ResolveAdapter(container, adapter, expectedType) != null;
@@ -62,8 +57,6 @@ namespace PicoContainer.Defaults
 
             componentAdapter.Verify(container);
         }
-
-        #endregion
 
         private IComponentAdapter ResolveAdapter(IPicoContainer container, IComponentAdapter adapter, Type expectedType)
         {

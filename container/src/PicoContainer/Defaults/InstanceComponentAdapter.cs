@@ -16,7 +16,7 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class InstanceComponentAdapter : AbstractComponentAdapter
     {
-        private object componentInstance;
+        private readonly object componentInstance;
 
         public InstanceComponentAdapter(object componentKey, object componentInstance)
             : base(componentKey, componentInstance.GetType())

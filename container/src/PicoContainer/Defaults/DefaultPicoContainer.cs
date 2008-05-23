@@ -15,7 +15,7 @@ using System.Collections;
 namespace PicoContainer.Defaults
 {
     [Serializable]
-    public class DefaultPicoContainer : IMutablePicoContainer, IDisposable
+    public class DefaultPicoContainer : IMutablePicoContainer
     {
         private readonly IComponentAdapterFactory componentAdapterFactory;
 
@@ -24,7 +24,7 @@ namespace PicoContainer.Defaults
         private readonly ILifecycleManager lifecycleManager;
         private readonly IList orderedComponentAdapters = new ArrayList();
 
-        private Hashtable children = new Hashtable();
+        private readonly Hashtable children = new Hashtable();
         private bool disposed = false;
         private IPicoContainer parent;
         private bool started = false;

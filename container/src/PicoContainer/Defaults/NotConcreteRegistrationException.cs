@@ -17,7 +17,7 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class NotConcreteRegistrationException : PicoRegistrationException
     {
-        private Type componentImplementation;
+        private readonly Type componentImplementation;
 
         public NotConcreteRegistrationException(Type componentImplementation)
         {

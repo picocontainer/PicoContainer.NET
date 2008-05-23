@@ -22,7 +22,7 @@ namespace PicoContainer
     [Serializable]
     public class PicoVerificationException : PicoException
     {
-        private IList nestedExceptions = new ArrayList();
+        private readonly IList nestedExceptions = new ArrayList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PicoContainer.PicoException"/> class.

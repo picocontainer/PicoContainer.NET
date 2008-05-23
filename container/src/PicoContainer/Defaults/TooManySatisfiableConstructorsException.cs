@@ -18,8 +18,8 @@ namespace PicoContainer.Defaults
     [Serializable]
     public class TooManySatisfiableConstructorsException : PicoIntrospectionException
     {
-        private ICollection constructors;
-        private Type forClass;
+        private readonly ICollection constructors;
+        private readonly Type forClass;
 
         public TooManySatisfiableConstructorsException(Type forClass, ICollection constructors)
         {

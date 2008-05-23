@@ -6,7 +6,7 @@ namespace PicoContainer.Alternatives
     [Serializable]
     public abstract class AbstractDelegatingMutablePicoContainer : IMutablePicoContainer
     {
-        private IMutablePicoContainer delegateContainer;
+        private readonly IMutablePicoContainer delegateContainer;
 
         public AbstractDelegatingMutablePicoContainer(IMutablePicoContainer delegateContainer)
         {
