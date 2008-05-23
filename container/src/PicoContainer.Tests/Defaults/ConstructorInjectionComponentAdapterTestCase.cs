@@ -2,285 +2,295 @@ using System;
 using System.Collections;
 using System.Security;
 using NUnit.Framework;
-using PicoContainer;
-using PicoContainer.Defaults;
 using PicoContainer.Tck;
 using PicoContainer.TestModel;
 
 namespace PicoContainer.Defaults
 {
-	[TestFixture]
-	public class ConstructorInjectionComponentAdapterTestCase : AbstractComponentAdapterTestCase
-	{
-		protected override Type GetComponentAdapterType() 
-		{
-			return typeof(ConstructorInjectionComponentAdapter);
-		}
+    [TestFixture]
+    public class ConstructorInjectionComponentAdapterTestCase : AbstractComponentAdapterTestCase
+    {
+        protected override Type GetComponentAdapterType()
+        {
+            return typeof (ConstructorInjectionComponentAdapter);
+        }
 
-		protected override IComponentAdapter prepDEF_verifyWithoutDependencyWorks(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter("foo", typeof (A));
-		}
+        protected override IComponentAdapter prepDEF_verifyWithoutDependencyWorks(IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter("foo", typeof (A));
+        }
 
-		public class A
-		{
-			public A()
-			{
-				Assert.Fail("verification should not instantiate");
-			}
-		}
+        public class A
+        {
+            public A()
+            {
+                Assert.Fail("verification should not instantiate");
+            }
+        }
 
-		public class B
-		{
-			public B(A a)
-			{
-				Assert.Fail("verification should not instantiate");
-			}
-		}
+        public class B
+        {
+            public B(A a)
+            {
+                Assert.Fail("verification should not instantiate");
+            }
+        }
 
-		protected override IComponentAdapter prepDEF_verifyDoesNotInstantiate(IMutablePicoContainer picoContainer)
-		{
-			picoContainer.RegisterComponentImplementation(typeof (A));
-			return new ConstructorInjectionComponentAdapter(typeof (B));
-		}
+        protected override IComponentAdapter prepDEF_verifyDoesNotInstantiate(IMutablePicoContainer picoContainer)
+        {
+            picoContainer.RegisterComponentImplementation(typeof (A));
+            return new ConstructorInjectionComponentAdapter(typeof (B));
+        }
 
-		protected IComponentAdapter prepDEF_visitable()
-		{
-			return new ConstructorInjectionComponentAdapter("bar", typeof (B), new IParameter[] {ComponentParameter.DEFAULT});
-		}
+        protected IComponentAdapter prepDEF_visitable()
+        {
+            return
+                new ConstructorInjectionComponentAdapter("bar", typeof (B),
+                                                         new IParameter[] {ComponentParameter.DEFAULT});
+        }
 
-		protected IComponentAdapter prepDEF_isAbleToTakeParameters(IMutablePicoContainer picoContainer)
-		{
-			picoContainer.RegisterComponentImplementation(typeof (SimpleTouchable));
-			return new ConstructorInjectionComponentAdapter(typeof (NamedDependsOnTouchable), typeof (NamedDependsOnTouchable), new IParameter[]
-				{
-					ComponentParameter.DEFAULT, new ConstantParameter("Name")
-				});
-		}
+        protected IComponentAdapter prepDEF_isAbleToTakeParameters(IMutablePicoContainer picoContainer)
+        {
+            picoContainer.RegisterComponentImplementation(typeof (SimpleTouchable));
+            return
+                new ConstructorInjectionComponentAdapter(typeof (NamedDependsOnTouchable),
+                                                         typeof (NamedDependsOnTouchable), new IParameter[]
+                                                                                               {
+                                                                                                   ComponentParameter.
+                                                                                                       DEFAULT,
+                                                                                                   new ConstantParameter
+                                                                                                       ("Name")
+                                                                                               });
+        }
 
-		protected override IComponentAdapter prepSER_isSerializable(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable));
-		}
+        protected override IComponentAdapter prepSER_isSerializable(IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable));
+        }
 
-		public class NamedDependsOnTouchable
-			: DependsOnTouchable
-		{
-			public NamedDependsOnTouchable(ITouchable t, String name) : base(t)
-			{
-			}
-		}
+        public class NamedDependsOnTouchable
+            : DependsOnTouchable
+        {
+            public NamedDependsOnTouchable(ITouchable t, String name) : base(t)
+            {
+            }
+        }
 
-		protected override IComponentAdapter prepVER_verificationFails(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable));
-		}
+        protected override IComponentAdapter prepVER_verificationFails(IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable));
+        }
 
-		protected override IComponentAdapter prepINS_createsNewInstances(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable));
-		}
+        protected override IComponentAdapter prepINS_createsNewInstances(IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter(typeof (SimpleTouchable));
+        }
 
-		public class Erroneous
-		{
-			public Erroneous()
-			{
-				throw new VerificationException("test");
-			}
-		}
+        public class Erroneous
+        {
+            public Erroneous()
+            {
+                throw new VerificationException("test");
+            }
+        }
 
-		protected override IComponentAdapter prepINS_errorIsRethrown(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter(typeof (Erroneous));
-		}
+        protected override IComponentAdapter prepINS_errorIsRethrown(IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter(typeof (Erroneous));
+        }
 
-		public class RuntimeThrowing
-		{
-			public RuntimeThrowing()
-			{
-				throw new SystemException("test");
-			}
-		}
+        public class RuntimeThrowing
+        {
+            public RuntimeThrowing()
+            {
+                throw new SystemException("test");
+            }
+        }
 
-		protected override IComponentAdapter prepINS_systemExceptionIsRethrown(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter(typeof (RuntimeThrowing));
-		}
+        protected override IComponentAdapter prepINS_systemExceptionIsRethrown(IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter(typeof (RuntimeThrowing));
+        }
 
 
-		public class NormalExceptionThrowing
-		{
-			public NormalExceptionThrowing()
-			{
-				throw new Exception("test");
-			}
-		}
+        public class NormalExceptionThrowing
+        {
+            public NormalExceptionThrowing()
+            {
+                throw new Exception("test");
+            }
+        }
 
-		protected override IComponentAdapter prepINS_normalExceptionIsRethrownInsidePicoInvocationTargetInitializationException(IMutablePicoContainer picoContainer)
-		{
-			return new ConstructorInjectionComponentAdapter(typeof (NormalExceptionThrowing));
-		}
+        protected override IComponentAdapter
+            prepINS_normalExceptionIsRethrownInsidePicoInvocationTargetInitializationException(
+            IMutablePicoContainer picoContainer)
+        {
+            return new ConstructorInjectionComponentAdapter(typeof (NormalExceptionThrowing));
+        }
 
-		protected override IComponentAdapter prepRES_dependenciesAreResolved(IMutablePicoContainer picoContainer)
-		{
-			picoContainer.RegisterComponentImplementation(typeof (SimpleTouchable));
-			return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable));
-		}
+        protected override IComponentAdapter prepRES_dependenciesAreResolved(IMutablePicoContainer picoContainer)
+        {
+            picoContainer.RegisterComponentImplementation(typeof (SimpleTouchable));
+            return new ConstructorInjectionComponentAdapter(typeof (DependsOnTouchable));
+        }
 
-		public class C1
-		{
-			public C1(C2 c2)
-			{
-				Assert.Fail("verification should not instantiate");
-			}
-		}
+        public class C1
+        {
+            public C1(C2 c2)
+            {
+                Assert.Fail("verification should not instantiate");
+            }
+        }
 
-		public class C2
-		{
-			public C2(C1 c1)
-			{
-				Assert.Fail("verification should not instantiate");
-			}
-		}
+        public class C2
+        {
+            public C2(C1 c1)
+            {
+                Assert.Fail("verification should not instantiate");
+            }
+        }
 
-		protected override IComponentAdapter prepRES_failingVerificationWithCyclicDependencyException(IMutablePicoContainer picoContainer)
-		{
-			IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1));
-			picoContainer.RegisterComponent(componentAdapter);
-			picoContainer.RegisterComponentImplementation(typeof (C2), typeof (C2));
-			return componentAdapter;
-		}
+        protected override IComponentAdapter prepRES_failingVerificationWithCyclicDependencyException(
+            IMutablePicoContainer picoContainer)
+        {
+            IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1));
+            picoContainer.RegisterComponent(componentAdapter);
+            picoContainer.RegisterComponentImplementation(typeof (C2), typeof (C2));
+            return componentAdapter;
+        }
 
-		protected override IComponentAdapter prepRES_failingInstantiationWithCyclicDependencyException(IMutablePicoContainer picoContainer)
-		{
-			IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1));
-			picoContainer.RegisterComponent(componentAdapter);
-			picoContainer.RegisterComponentImplementation(typeof (C2), typeof (C2));
-			return componentAdapter;
-		}
+        protected override IComponentAdapter prepRES_failingInstantiationWithCyclicDependencyException(
+            IMutablePicoContainer picoContainer)
+        {
+            IComponentAdapter componentAdapter = new ConstructorInjectionComponentAdapter(typeof (C1));
+            picoContainer.RegisterComponent(componentAdapter);
+            picoContainer.RegisterComponentImplementation(typeof (C2), typeof (C2));
+            return componentAdapter;
+        }
 
-		[Test]
-		public void NormalExceptionThrownInCtorIsRethrownInsideInvocationTargetExeption()
-		{
-			DefaultPicoContainer picoContainer = new DefaultPicoContainer();
-			picoContainer.RegisterComponentImplementation(typeof (NormalExceptionThrowing));
-			try
-			{
-				picoContainer.GetComponentInstance(typeof (NormalExceptionThrowing));
-				Assert.Fail();
-			}
-			catch (PicoInvocationTargetInitializationException e)
-			{
-				Assert.AreEqual("test", e.GetBaseException().Message);
-			}
-		}
+        public abstract class InstantiationExceptionThrowing
+        {
+            public InstantiationExceptionThrowing()
+            {
+            }
+        }
 
-		public abstract class InstantiationExceptionThrowing
-		{
-			public InstantiationExceptionThrowing()
-			{
-			}
-		}
+        public class IllegalAccessExceptionThrowing
+        {
+            private IllegalAccessExceptionThrowing()
+            {
+            }
+        }
 
-		[Test]
-		[ExpectedException(typeof (NotConcreteRegistrationException))]
-		public void InstantiationExceptionThrownInCtorIsRethrownInsideInvocationTargetExeption()
-		{
-			DefaultPicoContainer picoContainer = new DefaultPicoContainer();
-			picoContainer.RegisterComponentImplementation(typeof (InstantiationExceptionThrowing));
-			picoContainer.GetComponentInstance(typeof (InstantiationExceptionThrowing));
-		}
+        private class Private
+        {
+            private Private()
+            {
+            }
+        }
 
-		public class IllegalAccessExceptionThrowing
-		{
-			private IllegalAccessExceptionThrowing()
-			{
-			}
-		}
+        private class NotYourBusiness
+        {
+            private NotYourBusiness(Private aPrivate)
+            {
+                Assert.IsNotNull(aPrivate);
+            }
+        }
 
-		[Test]
-		public void PicoInitializationExceptionThrownBecauseOfFilteredConstructors()
-		{
-			DefaultPicoContainer picoContainer = new DefaultPicoContainer();
-			try
-			{
-				picoContainer.RegisterComponentImplementation(typeof (IllegalAccessExceptionThrowing));
-				picoContainer.GetComponentInstance(typeof (IllegalAccessExceptionThrowing));
-				Assert.Fail();
-			}
-			catch (PicoInitializationException e)
-			{
-				Assert.IsTrue(e.Message.IndexOf(typeof (IllegalAccessExceptionThrowing).Name) > 0);
-			}
-		}
+        // http://jira.codehaus.org/browse/PICO-189
 
-		[Test]
-		public void RegisterAbstractShouldFail()
-		{
-			IMutablePicoContainer pico = new DefaultPicoContainer();
+        public class Component201
+        {
+            public Component201(String s)
+            {
+            }
 
-			try
-			{
-				pico.RegisterComponentImplementation(typeof (IList));
-				Assert.Fail("Shouldn't be allowed to register abstract classes or interfaces.");
-			}
-			catch (NotConcreteRegistrationException e)
-			{
-				Assert.AreEqual(typeof (IList), e.ComponentImplementation);
-				Assert.IsTrue(e.Message.IndexOf(typeof (IList).Name) > 0);
-			}
-		}
+            protected Component201(int i, bool b)
+            {
+                Assert.Fail("Wrong constructor taken.");
+            }
+        }
 
-		private class Private
-		{
-			private Private()
-			{
-			}
-		}
+        [Test]
+        [ExpectedException(typeof (NotConcreteRegistrationException))]
+        public void InstantiationExceptionThrownInCtorIsRethrownInsideInvocationTargetExeption()
+        {
+            DefaultPicoContainer picoContainer = new DefaultPicoContainer();
+            picoContainer.RegisterComponentImplementation(typeof (InstantiationExceptionThrowing));
+            picoContainer.GetComponentInstance(typeof (InstantiationExceptionThrowing));
+        }
 
-		private class NotYourBusiness
-		{
-			private NotYourBusiness(Private aPrivate)
-			{
-				Assert.IsNotNull(aPrivate);
-			}
-		}
+        [Test]
+        public void NormalExceptionThrownInCtorIsRethrownInsideInvocationTargetExeption()
+        {
+            DefaultPicoContainer picoContainer = new DefaultPicoContainer();
+            picoContainer.RegisterComponentImplementation(typeof (NormalExceptionThrowing));
+            try
+            {
+                picoContainer.GetComponentInstance(typeof (NormalExceptionThrowing));
+                Assert.Fail();
+            }
+            catch (PicoInvocationTargetInitializationException e)
+            {
+                Assert.AreEqual("test", e.GetBaseException().Message);
+            }
+        }
 
-		// http://jira.codehaus.org/browse/PICO-189
-		[Test]
-		public void ShouldBeAbleToInstantiateNonPublicClassesWithNonPublicConstructors()
-		{
-			DefaultPicoContainer pico = new DefaultPicoContainer(new ConstructorInjectionComponentAdapterFactory(true));
-			pico.RegisterComponentImplementation(typeof (Private));
-			pico.RegisterComponentImplementation(typeof (NotYourBusiness));
-			Assert.IsNotNull(pico.GetComponentInstance(typeof (NotYourBusiness)));
-		}
+        [Test]
+        public void PicoInitializationExceptionThrownBecauseOfFilteredConstructors()
+        {
+            DefaultPicoContainer picoContainer = new DefaultPicoContainer();
+            try
+            {
+                picoContainer.RegisterComponentImplementation(typeof (IllegalAccessExceptionThrowing));
+                picoContainer.GetComponentInstance(typeof (IllegalAccessExceptionThrowing));
+                Assert.Fail();
+            }
+            catch (PicoInitializationException e)
+            {
+                Assert.IsTrue(e.Message.IndexOf(typeof (IllegalAccessExceptionThrowing).Name) > 0);
+            }
+        }
 
-		public class Component201
-		{
-			public Component201(String s)
-			{
-			}
+        [Test]
+        public void RegisterAbstractShouldFail()
+        {
+            IMutablePicoContainer pico = new DefaultPicoContainer();
 
-			protected Component201(int i, bool b)
-			{
-				Assert.Fail("Wrong constructor taken.");
-			}
-		}
+            try
+            {
+                pico.RegisterComponentImplementation(typeof (IList));
+                Assert.Fail("Shouldn't be allowed to register abstract classes or interfaces.");
+            }
+            catch (NotConcreteRegistrationException e)
+            {
+                Assert.AreEqual(typeof (IList), e.ComponentImplementation);
+                Assert.IsTrue(e.Message.IndexOf(typeof (IList).Name) > 0);
+            }
+        }
 
-		// http://jira.codehaus.org/browse/PICO-201
-		[Test]
-		public void ShouldNotConsiderNonPublicConstructors()
-		{
-			DefaultPicoContainer pico = new DefaultPicoContainer();
-			pico.RegisterComponentImplementation(typeof (Component201));
-			pico.RegisterComponentInstance(2);
-			pico.RegisterComponentInstance(true);
-			pico.RegisterComponentInstance("Hello");
-			Assert.IsNotNull(pico.GetComponentInstance(typeof (Component201)));
-		}
+        [Test]
+        public void ShouldBeAbleToInstantiateNonPublicClassesWithNonPublicConstructors()
+        {
+            DefaultPicoContainer pico = new DefaultPicoContainer(new ConstructorInjectionComponentAdapterFactory(true));
+            pico.RegisterComponentImplementation(typeof (Private));
+            pico.RegisterComponentImplementation(typeof (NotYourBusiness));
+            Assert.IsNotNull(pico.GetComponentInstance(typeof (NotYourBusiness)));
+        }
 
-		/*public void testMonitoringHappensBeforeAndAfterInstantiation() {
+        // http://jira.codehaus.org/browse/PICO-201
+        [Test]
+        public void ShouldNotConsiderNonPublicConstructors()
+        {
+            DefaultPicoContainer pico = new DefaultPicoContainer();
+            pico.RegisterComponentImplementation(typeof (Component201));
+            pico.RegisterComponentInstance(2);
+            pico.RegisterComponentInstance(true);
+            pico.RegisterComponentInstance("Hello");
+            Assert.IsNotNull(pico.GetComponentInstance(typeof (Component201)));
+        }
+
+        /*public void testMonitoringHappensBeforeAndAfterInstantiation() {
 		long beforeTime = System.currentTimeMillis();
 
 		Mock monitor = mock(ComponentMonitor.class);
@@ -350,5 +360,5 @@ namespace PicoContainer.Defaults
 		public void actionPerformed(ActionEvent e) {
 		}
 	}*/
-	}
+    }
 }

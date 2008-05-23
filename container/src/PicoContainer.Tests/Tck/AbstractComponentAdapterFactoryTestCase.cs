@@ -8,52 +8,60 @@
  * Idea by Rachel Davies, Original code by Aslak Hellesoy and Paul Hammant   *
  * C# port by Maarten Grootendorst                                           *
  *****************************************************************************/
-using PicoContainer;
-using PicoContainer.Defaults;
 using NUnit.Framework;
+using PicoContainer.Defaults;
 using PicoContainer.TestModel;
 
 namespace PicoContainer.Tck
 {
-	[TestFixture]
-	public abstract class AbstractComponentAdapterFactoryTestCase
-	{
-		protected DefaultPicoContainer picoContainer;
+    [TestFixture]
+    public abstract class AbstractComponentAdapterFactoryTestCase
+    {
+        #region Setup/Teardown
 
-		protected abstract IComponentAdapterFactory CreateComponentAdapterFactory();
+        [SetUp]
+        public virtual void SetUp()
+        {
+            picoContainer = new DefaultPicoContainer();
+        }
 
-		[SetUp]
-		public virtual void SetUp()
-		{
-			picoContainer = new DefaultPicoContainer();
-		}
+        #endregion
 
-		[Test]
-		public void TestEquals()
-		{
-			IComponentAdapter componentAdapter = CreateComponentAdapterFactory().CreateComponentAdapter(typeof (ITouchable), typeof (SimpleTouchable), null);
-			Assert.AreEqual(componentAdapter, componentAdapter);
-		}
+        protected DefaultPicoContainer picoContainer;
 
-		[Test]
-		public void RegisterComponent()
-		{
-			IComponentAdapter componentAdapter = CreateComponentAdapterFactory().CreateComponentAdapter(typeof (ITouchable), typeof (SimpleTouchable), null);
+        protected abstract IComponentAdapterFactory CreateComponentAdapterFactory();
 
-			picoContainer.RegisterComponent(componentAdapter);
+        [Test]
+        public void RegisterComponent()
+        {
+            IComponentAdapter componentAdapter =
+                CreateComponentAdapterFactory().CreateComponentAdapter(typeof (ITouchable), typeof (SimpleTouchable),
+                                                                       null);
 
-			Assert.IsTrue(picoContainer.ComponentAdapters.Contains(componentAdapter));
-		}
+            picoContainer.RegisterComponent(componentAdapter);
 
-		[Test]
-		public void UnRegisterComponent()
-		{
-			IComponentAdapter componentAdapter =
-				CreateComponentAdapterFactory().CreateComponentAdapter(typeof (ITouchable), typeof (SimpleTouchable), null);
+            Assert.IsTrue(picoContainer.ComponentAdapters.Contains(componentAdapter));
+        }
 
-			picoContainer.RegisterComponent(componentAdapter);
-			Assert.IsNotNull(picoContainer.UnregisterComponent(typeof (ITouchable)));
-			Assert.IsFalse(picoContainer.ComponentAdapters.Contains(componentAdapter));
-		}
-	}
+        [Test]
+        public void TestEquals()
+        {
+            IComponentAdapter componentAdapter =
+                CreateComponentAdapterFactory().CreateComponentAdapter(typeof (ITouchable), typeof (SimpleTouchable),
+                                                                       null);
+            Assert.AreEqual(componentAdapter, componentAdapter);
+        }
+
+        [Test]
+        public void UnRegisterComponent()
+        {
+            IComponentAdapter componentAdapter =
+                CreateComponentAdapterFactory().CreateComponentAdapter(typeof (ITouchable), typeof (SimpleTouchable),
+                                                                       null);
+
+            picoContainer.RegisterComponent(componentAdapter);
+            Assert.IsNotNull(picoContainer.UnregisterComponent(typeof (ITouchable)));
+            Assert.IsFalse(picoContainer.ComponentAdapters.Contains(componentAdapter));
+        }
+    }
 }

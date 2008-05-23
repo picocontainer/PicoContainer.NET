@@ -1,4 +1,5 @@
 using System;
+
 /*****************************************************************************
  * Copyright (C) PicoContainer Organization. All rights reserved.            *
  * ------------------------------------------------------------------------- *
@@ -12,19 +13,23 @@ using System;
 
 namespace PicoContainer.TestModel
 {
-	[Serializable]
-	public class SimpleTouchable : ITouchable
-	{
-		private bool wasTouched;
+    [Serializable]
+    public class SimpleTouchable : ITouchable
+    {
+        private bool wasTouched;
 
-		public bool WasTouched
-		{
-			get { return wasTouched; }
-		}
+        #region ITouchable Members
 
-		public void Touch()
-		{
-			wasTouched = true;
-		}
-	}
+        public bool WasTouched
+        {
+            get { return wasTouched; }
+        }
+
+        public void Touch()
+        {
+            wasTouched = true;
+        }
+
+        #endregion
+    }
 }

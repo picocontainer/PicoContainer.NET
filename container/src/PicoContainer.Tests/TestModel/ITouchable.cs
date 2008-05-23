@@ -9,17 +9,12 @@
  * C# port by Maarten Grootendorst                                           *
  *****************************************************************************/
 
-using System;
-
 namespace PicoContainer.TestModel
 {
-	public interface ITouchable
-	{
-		bool WasTouched
-		{
-			get;
-		}
-		
-		void Touch();
-	}
+    public interface ITouchable
+    {
+        bool WasTouched { get; }
+
+        void Touch();
+    }
 }

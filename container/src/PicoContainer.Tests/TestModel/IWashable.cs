@@ -9,12 +9,10 @@
  * C# port by Maarten Grootendorst                                           *
  *****************************************************************************/
 
-using System;
-
 namespace PicoContainer.TestModel
 {
-	public interface IWashable
-	{
-		void Wash();
-	}
+    public interface IWashable
+    {
+        void Wash();
+    }
 }

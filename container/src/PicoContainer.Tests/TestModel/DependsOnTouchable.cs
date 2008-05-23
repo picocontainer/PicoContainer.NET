@@ -14,21 +14,21 @@ using NUnit.Framework;
 
 namespace PicoContainer.TestModel
 {
-	[Serializable]
-	public class DependsOnTouchable
-	{
-		private ITouchable touchable;
+    [Serializable]
+    public class DependsOnTouchable
+    {
+        private ITouchable touchable;
 
-		public DependsOnTouchable(ITouchable touchable)
-		{
-			Assert.IsNotNull(touchable, "Touchable cannot be passed in as null");
-			touchable.Touch();
-			this.touchable = touchable;
-		}
+        public DependsOnTouchable(ITouchable touchable)
+        {
+            Assert.IsNotNull(touchable, "Touchable cannot be passed in as null");
+            touchable.Touch();
+            this.touchable = touchable;
+        }
 
-		public Object getTouchable()
-		{
-			return touchable;
-		}
-	}
+        public Object getTouchable()
+        {
+            return touchable;
+        }
+    }
 }

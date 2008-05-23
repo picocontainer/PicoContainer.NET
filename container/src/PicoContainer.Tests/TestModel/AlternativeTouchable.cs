@@ -13,19 +13,23 @@ using System;
 
 namespace PicoContainer.TestModel
 {
-	[Serializable]
-	public class AlternativeTouchable : ITouchable
-	{
-		private bool wasTouched = false;
+    [Serializable]
+    public class AlternativeTouchable : ITouchable
+    {
+        private bool wasTouched = false;
 
-		public bool WasTouched
-		{
-			get { return wasTouched; }
-		}
+        #region ITouchable Members
 
-		public virtual void Touch()
-		{
-			wasTouched = true;
-		}
-	}
+        public bool WasTouched
+        {
+            get { return wasTouched; }
+        }
+
+        public virtual void Touch()
+        {
+            wasTouched = true;
+        }
+
+        #endregion
+    }
 }

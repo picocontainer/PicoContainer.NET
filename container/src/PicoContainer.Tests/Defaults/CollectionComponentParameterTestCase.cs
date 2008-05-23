@@ -10,7 +10,7 @@ namespace PicoContainer.Defaults
     [TestFixture]
     public class CollectionComponentParameterTestCase
     {
-        private IMutablePicoContainer GetDefaultPicoContainer()
+        private static IMutablePicoContainer GetDefaultPicoContainer()
         {
             IMutablePicoContainer mpc = new DefaultPicoContainer();
             mpc.RegisterComponentImplementation(typeof (Bowl));
@@ -21,7 +21,7 @@ namespace PicoContainer.Defaults
 
         public class DictionaryBowl
         {
-            private Fish[] fishes;
+            private readonly Fish[] fishes;
 
             public DictionaryBowl(IDictionary dictionary)
             {
@@ -44,7 +44,7 @@ namespace PicoContainer.Defaults
 
         public class AnotherGenericCollectionBowl
         {
-            private string[] strings;
+            private readonly string[] strings;
 
             public AnotherGenericCollectionBowl(string[] strings)
             {
@@ -59,7 +59,7 @@ namespace PicoContainer.Defaults
 
         public class TouchableObserver : ITouchable
         {
-            private ITouchable[] touchables;
+            private readonly ITouchable[] touchables;
 
             public TouchableObserver(ITouchable[] touchables)
             {

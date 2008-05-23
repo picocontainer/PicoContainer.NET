@@ -1,83 +1,87 @@
 using System;
-using PicoContainer.Tck;
-using PicoContainer.Defaults;
 using NUnit.Framework;
+using PicoContainer.Tck;
 
 namespace PicoContainer.Defaults
 {
-	[TestFixture]
-	public class SetterInjectionComponentAdapterFactoryTestCase : AbstractComponentAdapterFactoryTestCase
-	{
-		[SetUp]
-		public override void SetUp()
-		{
-			picoContainer = new DefaultPicoContainer(CreateComponentAdapterFactory());
-		}
+    [TestFixture]
+    public class SetterInjectionComponentAdapterFactoryTestCase : AbstractComponentAdapterFactoryTestCase
+    {
+        #region Setup/Teardown
 
-		protected override IComponentAdapterFactory CreateComponentAdapterFactory()
-		{
-			return new SetterInjectionComponentAdapterFactory();
-		}
+        [SetUp]
+        public override void SetUp()
+        {
+            picoContainer = new DefaultPicoContainer(CreateComponentAdapterFactory());
+        }
 
-		public interface Bean
-		{
-		}
+        #endregion
 
-		public class NamedBean : Bean
-		{
-			private String name;
+        protected override IComponentAdapterFactory CreateComponentAdapterFactory()
+        {
+            return new SetterInjectionComponentAdapterFactory();
+        }
 
-			public String Name
-			{
-				get { return name; }
-				set { name = value; }
-			}
-		}
+        public interface Bean
+        {
+        }
 
-		public class NamedBeanWithPossibleDefault : NamedBean
-		{
-			private bool byDefault = false;
+        public class NamedBean : Bean
+        {
+            private String name;
 
-			public NamedBeanWithPossibleDefault()
-			{
-			}
+            public String Name
+            {
+                get { return name; }
+                set { name = value; }
+            }
+        }
 
-			public NamedBeanWithPossibleDefault(String name)
-			{
-				Name = name;
-				byDefault = true;
-			}
+        public class NamedBeanWithPossibleDefault : NamedBean
+        {
+            private bool byDefault = false;
 
-			public bool ByDefault
-			{
-				get { return byDefault; }
-			}
-		}
+            public NamedBeanWithPossibleDefault()
+            {
+            }
 
-		public class NoBean : NamedBean
-		{
-			public NoBean(String name)
-			{
-				Name = name;
-			}
-		}
+            public NamedBeanWithPossibleDefault(String name)
+            {
+                Name = name;
+                byDefault = true;
+            }
 
-		[Test]
-		public void ContainerUsesStandardConstructor() 
-		{
-			picoContainer.RegisterComponentImplementation(typeof(Bean), typeof(NamedBeanWithPossibleDefault));
-			picoContainer.RegisterComponentInstance("Tom");
-			NamedBeanWithPossibleDefault bean = (NamedBeanWithPossibleDefault) picoContainer.GetComponentInstance(typeof(Bean));
-			Assert.IsFalse(bean.ByDefault);
-		}
+            public bool ByDefault
+            {
+                get { return byDefault; }
+            }
+        }
 
-		[Test]
-		[ExpectedException(typeof(PicoInvocationTargetInitializationException))]
-		public void ContainerUsesOnlyStandardConstructor() 
-		{
-			picoContainer.RegisterComponentImplementation(typeof(Bean), typeof(NoBean));
-			picoContainer.RegisterComponentInstance("Tom");
-			picoContainer.GetComponentInstance(typeof(Bean));
-		}
-	}
+        public class NoBean : NamedBean
+        {
+            public NoBean(String name)
+            {
+                Name = name;
+            }
+        }
+
+        [Test]
+        [ExpectedException(typeof (PicoInvocationTargetInitializationException))]
+        public void ContainerUsesOnlyStandardConstructor()
+        {
+            picoContainer.RegisterComponentImplementation(typeof (Bean), typeof (NoBean));
+            picoContainer.RegisterComponentInstance("Tom");
+            picoContainer.GetComponentInstance(typeof (Bean));
+        }
+
+        [Test]
+        public void ContainerUsesStandardConstructor()
+        {
+            picoContainer.RegisterComponentImplementation(typeof (Bean), typeof (NamedBeanWithPossibleDefault));
+            picoContainer.RegisterComponentInstance("Tom");
+            NamedBeanWithPossibleDefault bean =
+                (NamedBeanWithPossibleDefault) picoContainer.GetComponentInstance(typeof (Bean));
+            Assert.IsFalse(bean.ByDefault);
+        }
+    }
 }

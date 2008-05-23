@@ -11,49 +11,48 @@
 
 using System;
 using NUnit.Framework;
-using PicoContainer;
 
 namespace PicoContainer.Tck
 {
-	/// <summary>
-	/// Summary description for AbstractLazyInstantiationTestCase.
-	/// </summary>
-	[TestFixture]
-	public abstract class AbstractLazyInstantiationTestCase
-	{
-		protected abstract IMutablePicoContainer createPicoContainer();
+    /// <summary>
+    /// Summary description for AbstractLazyInstantiationTestCase.
+    /// </summary>
+    [TestFixture]
+    public abstract class AbstractLazyInstantiationTestCase
+    {
+        protected abstract IMutablePicoContainer createPicoContainer();
 
-		public class Kilroy
-		{
-			public Kilroy(Havana havana)
-			{
-				havana.graffiti("Kilroy was here");
-			}
-		}
+        public class Kilroy
+        {
+            public Kilroy(Havana havana)
+            {
+                havana.graffiti("Kilroy was here");
+            }
+        }
 
-		public class Havana
-		{
-			public String paint = "Clean wall";
+        public class Havana
+        {
+            public String paint = "Clean wall";
 
-			public void graffiti(String paint)
-			{
-				this.paint = paint;
-			}
-		}
+            public void graffiti(String paint)
+            {
+                this.paint = paint;
+            }
+        }
 
-		[Test]
-		public void LazyInstantiation()
-		{
-			IMutablePicoContainer pico = createPicoContainer();
+        [Test]
+        public void LazyInstantiation()
+        {
+            IMutablePicoContainer pico = createPicoContainer();
 
-			pico.RegisterComponentImplementation(typeof (Kilroy));
-			pico.RegisterComponentImplementation(typeof (Havana));
+            pico.RegisterComponentImplementation(typeof (Kilroy));
+            pico.RegisterComponentImplementation(typeof (Havana));
 
-			Assert.AreSame(pico.GetComponentInstance(typeof (Havana)), pico.GetComponentInstance(typeof (Havana)));
-			Assert.IsNotNull(pico.GetComponentInstance(typeof (Havana)));
-			Assert.AreEqual("Clean wall", ((Havana) pico.GetComponentInstance(typeof (Havana))).paint);
-			Assert.IsNotNull(pico.GetComponentInstance(typeof (Kilroy)));
-			Assert.AreEqual("Kilroy was here", ((Havana) pico.GetComponentInstance(typeof (Havana))).paint);
-		}
-	}
+            Assert.AreSame(pico.GetComponentInstance(typeof (Havana)), pico.GetComponentInstance(typeof (Havana)));
+            Assert.IsNotNull(pico.GetComponentInstance(typeof (Havana)));
+            Assert.AreEqual("Clean wall", ((Havana) pico.GetComponentInstance(typeof (Havana))).paint);
+            Assert.IsNotNull(pico.GetComponentInstance(typeof (Kilroy)));
+            Assert.AreEqual("Kilroy was here", ((Havana) pico.GetComponentInstance(typeof (Havana))).paint);
+        }
+    }
 }
