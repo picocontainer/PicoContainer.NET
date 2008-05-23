@@ -3,294 +3,274 @@ using System.Collections;
 using NMock;
 using NMock.Constraints;
 using NUnit.Framework;
-using PicoContainer;
-using PicoContainer.Defaults;
 using PicoContainer.TestModel;
 
 namespace PicoContainer.Defaults
 {
-	[TestFixture]
-	public class CollectionComponentParameterTestCase
-	{
-		private IMutablePicoContainer GetDefaultPicoContainer()
-		{
-			IMutablePicoContainer mpc = new DefaultPicoContainer();
-			mpc.RegisterComponentImplementation(typeof (Bowl));
-			mpc.RegisterComponentImplementation(typeof (Cod));
-			mpc.RegisterComponentImplementation(typeof (Shark));
-			return mpc;
-		}
+    [TestFixture]
+    public class CollectionComponentParameterTestCase
+    {
+        private IMutablePicoContainer GetDefaultPicoContainer()
+        {
+            IMutablePicoContainer mpc = new DefaultPicoContainer();
+            mpc.RegisterComponentImplementation(typeof (Bowl));
+            mpc.RegisterComponentImplementation(typeof (Cod));
+            mpc.RegisterComponentImplementation(typeof (Shark));
+            return mpc;
+        }
 
-		[Test]
-		public void ShouldInstantiateArrayOfStrings()
-		{
-			CollectionComponentParameter ccp = new CollectionComponentParameter();
+        public class DictionaryBowl
+        {
+            private Fish[] fishes;
 
-			Mock componentAdapterMock = new DynamicMock(typeof (IComponentAdapter));
-			componentAdapterMock.ExpectAndReturn("ComponentKey", "x", null);
-			componentAdapterMock.ExpectAndReturn("ComponentKey", "x", null);
+            public DictionaryBowl(IDictionary dictionary)
+            {
+                ArrayList list = new ArrayList(dictionary.Values);
+                fishes = (Fish[]) list.ToArray(typeof (Fish));
+            }
 
-			Mock containerMock = new DynamicMock(typeof (IPicoContainer));
-			containerMock.ExpectAndReturn("ComponentAdapters", new Hashtable(), null);
+            public Fish[] Fishes
+            {
+                get { return fishes; }
+            }
+        }
 
-			IComponentAdapter[] adapters = new IComponentAdapter[]
-				{
-					new InstanceComponentAdapter("y", "Hello"),
-					new InstanceComponentAdapter("z", "World")
-				};
+        public class UngenericCollectionBowl
+        {
+            public UngenericCollectionBowl(ICollection fish)
+            {
+            }
+        }
 
-			containerMock.ExpectAndReturn("GetComponentAdaptersOfType", adapters, new IsEqual(typeof (string)));
-			containerMock.ExpectAndReturn("GetComponentInstance", "World", new IsEqual("z"));
-			containerMock.ExpectAndReturn("GetComponentInstance", "Hello", new IsEqual("y"));
-			containerMock.ExpectAndReturn("Parent", null, null);
+        public class AnotherGenericCollectionBowl
+        {
+            private string[] strings;
 
-			ArrayList expected = new ArrayList(new string[] {"Hello", "World"});
-			expected.Sort();
+            public AnotherGenericCollectionBowl(string[] strings)
+            {
+                this.strings = strings;
+            }
 
-			object[] array = (object[]) ccp.ResolveInstance((IPicoContainer) containerMock.MockInstance,
-                (IComponentAdapter) componentAdapterMock.MockInstance, 
-				typeof (string[]));
+            public string[] Strings
+            {
+                get { return strings; }
+            }
+        }
 
-			ArrayList actual = new ArrayList(array);
-			actual.Sort();
-			Assert.AreEqual(expected.ToArray(), actual.ToArray());
+        public class TouchableObserver : ITouchable
+        {
+            private ITouchable[] touchables;
 
-			// Verify mocks
-			componentAdapterMock.Verify();
-			containerMock.Verify();
-		}
+            public TouchableObserver(ITouchable[] touchables)
+            {
+                this.touchables = touchables;
+            }
 
-		[Test]
-		public void NativeArrays()
-		{
-			IMutablePicoContainer mpc = GetDefaultPicoContainer();
-			Cod cod = (Cod) mpc.GetComponentInstanceOfType(typeof (Cod));
-			Bowl bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
-			Assert.AreEqual(1, bowl.cods.Length);
-			Assert.AreEqual(2, bowl.fishes.Length);
-			Assert.AreSame(cod, bowl.cods[0]);
+            #region ITouchable Members
 
-			try
-			{
-				Assert.AreSame(bowl.fishes[0], bowl.fishes[1]);
-				Assert.Fail("fish should not be the same");
-			}
-			catch (AssertionException)
-			{
-			}
-		}
+            public bool WasTouched
+            {
+                get { return touchables[0].WasTouched; }
+            }
 
-		[Test]
-		public void CollectionsAreGeneratedOnTheFly()
-		{
-			IMutablePicoContainer mpc = new DefaultPicoContainer();
-			mpc.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (Bowl)));
-			mpc.RegisterComponentImplementation(typeof (Cod));
-			Bowl bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
-			Assert.AreEqual(1, bowl.cods.Length);
-			mpc.RegisterComponentInstance("Nemo", new Cod());
-			bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
-			Assert.AreEqual(2, bowl.cods.Length);
+            public void Touch()
+            {
+                foreach (ITouchable touchable in touchables)
+                {
+                    touchable.Touch();
+                }
+            }
 
-			try
-			{
-				Assert.AreSame(bowl.cods[0], bowl.cods[1]);
-				Assert.Fail("cods should not be the same");
-			}
-			catch (AssertionException)
-			{
-			}
-		}
+            #endregion
+        }
 
-		[Test]
-		public void TestCollections()
-		{
-			IMutablePicoContainer mpc = new DefaultPicoContainer();
-			IParameter[] parameters = new IParameter[]{new ComponentParameter(typeof(Cod), false), 
-														  new ComponentParameter(typeof(Fish), false)};
+        [Test]
+        public void AllowsEmptyArraysIfEspeciallySet()
+        {
+            IMutablePicoContainer pico = GetDefaultPicoContainer();
+            Type type = typeof (AnotherGenericCollectionBowl);
 
-			mpc.RegisterComponentImplementation(typeof(CollectedBowl), typeof(CollectedBowl), parameters);
-			mpc.RegisterComponentImplementation(typeof(Cod));
-			mpc.RegisterComponentImplementation(typeof(Shark));
-			Cod cod = (Cod) mpc.GetComponentInstanceOfType(typeof(Cod));
-			CollectedBowl bowl = (CollectedBowl) mpc.GetComponentInstance(typeof(CollectedBowl));
-			Assert.AreEqual(1, bowl.cods.Length);
-			Assert.AreEqual(2, bowl.fishes.Length);
-			Assert.AreSame(cod, bowl.cods[0]);
+            pico.RegisterComponentImplementation(type, type, new IParameter[] {ComponentParameter.ARRAY_ALLOW_EMPTY});
+            AnotherGenericCollectionBowl bowl = (AnotherGenericCollectionBowl) pico.GetComponentInstance(type);
+            Assert.IsNotNull(bowl);
+            Assert.AreEqual(0, bowl.Strings.Length);
+        }
 
-			try
-			{
-				Assert.AreSame(bowl.fishes[0], bowl.fishes[1]);
-				Assert.Fail("The fishes should not be the same");
-			}
-			catch(AssertionException) {}
-		}
+        [Test]
+        public void BowlWithoutTom()
+        {
+            IMutablePicoContainer mpc = new DefaultPicoContainer();
+            mpc.RegisterComponentImplementation("Tom", typeof (Cod));
+            mpc.RegisterComponentImplementation("Dick", typeof (Cod));
+            mpc.RegisterComponentImplementation("Harry", typeof (Cod));
+            mpc.RegisterComponentImplementation(typeof (Shark));
 
-		public class DictionaryBowl 
-		{
-			private Fish[] fishes;
+            IParameter[] parameters = new IParameter[]
+                {
+                    new SampleCollectionComponentParameter(typeof (Cod), false),
+                    new CollectionComponentParameter(typeof (Fish), false)
+                };
 
-			public Fish[] Fishes
-			{
-				get { return fishes; }
-			}
+            mpc.RegisterComponentImplementation(typeof (CollectedBowl), typeof (CollectedBowl), parameters);
 
-			public DictionaryBowl(IDictionary dictionary) 
-			{
-				ArrayList list = new ArrayList(dictionary.Values);
-				this.fishes = (Fish[]) list.ToArray(typeof(Fish));
-			}
-		}
+            CollectedBowl bowl = (CollectedBowl) mpc.GetComponentInstance(typeof (CollectedBowl));
+            Cod tom = (Cod) mpc.GetComponentInstance("Tom");
+            Assert.AreEqual(4, bowl.fishes.Length);
+            Assert.AreEqual(2, bowl.cods.Length);
+            Assert.IsFalse(new ArrayList(bowl.cods).Contains(tom));
+        }
 
-		[Test]
-		public void TestDictionaries()
-		{
-			IMutablePicoContainer mpc = new DefaultPicoContainer();
-			IParameter[] parameters = new IParameter[] {new ComponentParameter(typeof (Fish), false)};
+        [Test]
+        public void CollectionsAreGeneratedOnTheFly()
+        {
+            IMutablePicoContainer mpc = new DefaultPicoContainer();
+            mpc.RegisterComponent(new ConstructorInjectionComponentAdapter(typeof (Bowl)));
+            mpc.RegisterComponentImplementation(typeof (Cod));
+            Bowl bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
+            Assert.AreEqual(1, bowl.cods.Length);
+            mpc.RegisterComponentInstance("Nemo", new Cod());
+            bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
+            Assert.AreEqual(2, bowl.cods.Length);
 
-			mpc.RegisterComponentImplementation(typeof (DictionaryBowl), typeof (DictionaryBowl), parameters);
-			mpc.RegisterComponentImplementation(typeof (Cod));
-			mpc.RegisterComponentImplementation(typeof (Shark));
-			DictionaryBowl bowl = (DictionaryBowl) mpc.GetComponentInstance(typeof (DictionaryBowl));
-			Assert.AreEqual(2, bowl.Fishes.Length);
+            try
+            {
+                Assert.AreSame(bowl.cods[0], bowl.cods[1]);
+                Assert.Fail("cods should not be the same");
+            }
+            catch (AssertionException)
+            {
+            }
+        }
 
-			try
-			{
-				Assert.AreSame(bowl.Fishes[0], bowl.Fishes[1]);
-				Assert.Fail("Should not be the same fish");
-			} 
-			catch(AssertionException) {}
-		}
+        [Test]
+        public void NativeArrays()
+        {
+            IMutablePicoContainer mpc = GetDefaultPicoContainer();
+            Cod cod = (Cod) mpc.GetComponentInstanceOfType(typeof (Cod));
+            Bowl bowl = (Bowl) mpc.GetComponentInstance(typeof (Bowl));
+            Assert.AreEqual(1, bowl.cods.Length);
+            Assert.AreEqual(2, bowl.fishes.Length);
+            Assert.AreSame(cod, bowl.cods[0]);
 
-		public class UngenericCollectionBowl
-		{
-			public UngenericCollectionBowl(ICollection fish) 
-			{
-			}
-		}
+            try
+            {
+                Assert.AreSame(bowl.fishes[0], bowl.fishes[1]);
+                Assert.Fail("fish should not be the same");
+            }
+            catch (AssertionException)
+            {
+            }
+        }
 
-		[Test]
-		[ExpectedException(typeof(UnsatisfiableDependenciesException))]
-		public void ShouldNotInstantiateCollectionForUngenericCollectionParameters() 
-		{
-			IMutablePicoContainer pico = GetDefaultPicoContainer();
-			pico.RegisterComponentImplementation(typeof(UngenericCollectionBowl));		
-			pico.GetComponentInstance(typeof(UngenericCollectionBowl));
-		}
+        [Test]
+        [ExpectedException(typeof (UnsatisfiableDependenciesException))]
+        public void ShouldFailWhenThereAreNoComponentsToPutInTheArray()
+        {
+            IMutablePicoContainer pico = GetDefaultPicoContainer();
+            pico.RegisterComponentImplementation(typeof (AnotherGenericCollectionBowl));
+            pico.GetComponentInstance(typeof (AnotherGenericCollectionBowl));
+        }
 
-		public class AnotherGenericCollectionBowl
-		{
-			private string[] strings;
+        [Test]
+        public void ShouldInstantiateArrayOfStrings()
+        {
+            CollectionComponentParameter ccp = new CollectionComponentParameter();
 
-			public AnotherGenericCollectionBowl(string[] strings)
-			{
-				this.strings = strings;
-			}
+            Mock componentAdapterMock = new DynamicMock(typeof (IComponentAdapter));
+            componentAdapterMock.ExpectAndReturn("ComponentKey", "x", null);
+            componentAdapterMock.ExpectAndReturn("ComponentKey", "x", null);
 
-			public string[] Strings
-			{
-				get { return strings; }
-			}
-		}
+            Mock containerMock = new DynamicMock(typeof (IPicoContainer));
+            containerMock.ExpectAndReturn("ComponentAdapters", new Hashtable(), null);
 
-		[Test]
-		[ExpectedException(typeof(UnsatisfiableDependenciesException))]
-		public void ShouldFailWhenThereAreNoComponentsToPutInTheArray()
-		{
-			IMutablePicoContainer pico = GetDefaultPicoContainer();
-			pico.RegisterComponentImplementation(typeof (AnotherGenericCollectionBowl));
-			pico.GetComponentInstance(typeof (AnotherGenericCollectionBowl));
-		}
+            IComponentAdapter[] adapters = new IComponentAdapter[]
+                {
+                    new InstanceComponentAdapter("y", "Hello"),
+                    new InstanceComponentAdapter("z", "World")
+                };
 
-		[Test]
-		public void AllowsEmptyArraysIfEspeciallySet()
-		{
-			IMutablePicoContainer pico = GetDefaultPicoContainer();
-			Type type = typeof (AnotherGenericCollectionBowl);
+            containerMock.ExpectAndReturn("GetComponentAdaptersOfType", adapters, new IsEqual(typeof (string)));
+            containerMock.ExpectAndReturn("GetComponentInstance", "Hello", new IsEqual("y"));
+            containerMock.ExpectAndReturn("GetComponentInstance", "World", new IsEqual("z"));
+            containerMock.ExpectAndReturn("Parent", null, null);
 
-			pico.RegisterComponentImplementation(type, type, new IParameter[] {ComponentParameter.ARRAY_ALLOW_EMPTY});
-			AnotherGenericCollectionBowl bowl = (AnotherGenericCollectionBowl) pico.GetComponentInstance(type);
-			Assert.IsNotNull(bowl);
-			Assert.AreEqual(0, bowl.Strings.Length);
-		}
+            ArrayList expected = new ArrayList(new string[] {"Hello", "World"});
+            expected.Sort();
 
-		public class TouchableObserver : ITouchable
-		{
-			private ITouchable[] touchables;
+            object[] array = (object[]) ccp.ResolveInstance((IPicoContainer) containerMock.MockInstance,
+                                                            (IComponentAdapter) componentAdapterMock.MockInstance,
+                                                            typeof (string[]));
 
-			public TouchableObserver(ITouchable[] touchables)
-			{
-				this.touchables = touchables;
-			}
+            ArrayList actual = new ArrayList(array);
+            actual.Sort();
+            Assert.AreEqual(expected.ToArray(), actual.ToArray());
 
-			public bool WasTouched
-			{
-				get { return touchables[0].WasTouched; }
-			}
+            // Verify mocks
+            componentAdapterMock.Verify();
+            containerMock.Verify();
+        }
 
-			public void Touch()
-			{
-				foreach (ITouchable touchable in touchables)
-				{
-					touchable.Touch();
-				}
-			}
-		}
+        [Test]
+        [ExpectedException(typeof (UnsatisfiableDependenciesException))]
+        public void ShouldNotInstantiateCollectionForUngenericCollectionParameters()
+        {
+            IMutablePicoContainer pico = GetDefaultPicoContainer();
+            pico.RegisterComponentImplementation(typeof (UngenericCollectionBowl));
+            pico.GetComponentInstance(typeof (UngenericCollectionBowl));
+        }
 
-		[Test]
-		public void WillOmitSelfFromCollection() 
-		{
-			IMutablePicoContainer pico = GetDefaultPicoContainer();
-			pico.RegisterComponentImplementation(typeof(SimpleTouchable));
-			pico.RegisterComponentImplementation(typeof(TouchableObserver));
-			ITouchable observer = (ITouchable) pico.GetComponentInstanceOfType(typeof(TouchableObserver));
-			Assert.IsNotNull(observer);
-			observer.Touch();
-			SimpleTouchable touchable = (SimpleTouchable) pico.GetComponentInstanceOfType(typeof(SimpleTouchable));
-			Assert.IsTrue(touchable.WasTouched);
-		}
+        [Test]
+        public void TestCollections()
+        {
+            IMutablePicoContainer mpc = new DefaultPicoContainer();
+            IParameter[] parameters = new IParameter[]
+                {
+                    new ComponentParameter(typeof (Cod), false),
+                    new ComponentParameter(typeof (Fish), false)
+                };
 
-		[Test]
-		public void WillRemoveComponentsWithMatchingKeyFromParent() 
-		{
-			IMutablePicoContainer parent = new DefaultPicoContainer();
-			parent.RegisterComponentImplementation("Tom", typeof(Cod));
-			parent.RegisterComponentImplementation("Dick", typeof(Cod));
-			parent.RegisterComponentImplementation("Harry", typeof(Cod));
-			
-			IMutablePicoContainer child = new DefaultPicoContainer(parent);
-			child.RegisterComponentImplementation("Dick", typeof(Shark));
-			child.RegisterComponentImplementation(typeof(Bowl));
-			Bowl bowl = (Bowl) child.GetComponentInstance(typeof(Bowl));
-			Assert.AreEqual(3, bowl.fishes.Length);
-			Assert.AreEqual(2, bowl.cods.Length);
-		}
+            mpc.RegisterComponentImplementation(typeof (CollectedBowl), typeof (CollectedBowl), parameters);
+            mpc.RegisterComponentImplementation(typeof (Cod));
+            mpc.RegisterComponentImplementation(typeof (Shark));
+            Cod cod = (Cod) mpc.GetComponentInstanceOfType(typeof (Cod));
+            CollectedBowl bowl = (CollectedBowl) mpc.GetComponentInstance(typeof (CollectedBowl));
+            Assert.AreEqual(1, bowl.cods.Length);
+            Assert.AreEqual(2, bowl.fishes.Length);
+            Assert.AreSame(cod, bowl.cods[0]);
 
-		[Test]
-		public void BowlWithoutTom()
-		{
-			IMutablePicoContainer mpc = new DefaultPicoContainer();
-			mpc.RegisterComponentImplementation("Tom", typeof (Cod));
-			mpc.RegisterComponentImplementation("Dick", typeof (Cod));
-			mpc.RegisterComponentImplementation("Harry", typeof (Cod));
-			mpc.RegisterComponentImplementation(typeof (Shark));
+            try
+            {
+                Assert.AreSame(bowl.fishes[0], bowl.fishes[1]);
+                Assert.Fail("The fishes should not be the same");
+            }
+            catch (AssertionException)
+            {
+            }
+        }
 
-			IParameter[] parameters = new IParameter[]
-				{
-					new SampleCollectionComponentParameter(typeof (Cod), false),
-					new CollectionComponentParameter(typeof (Fish), false)
-				};
+        [Test]
+        public void TestDictionaries()
+        {
+            IMutablePicoContainer mpc = new DefaultPicoContainer();
+            IParameter[] parameters = new IParameter[] {new ComponentParameter(typeof (Fish), false)};
 
-			mpc.RegisterComponentImplementation(typeof (CollectedBowl), typeof (CollectedBowl), parameters);
+            mpc.RegisterComponentImplementation(typeof (DictionaryBowl), typeof (DictionaryBowl), parameters);
+            mpc.RegisterComponentImplementation(typeof (Cod));
+            mpc.RegisterComponentImplementation(typeof (Shark));
+            DictionaryBowl bowl = (DictionaryBowl) mpc.GetComponentInstance(typeof (DictionaryBowl));
+            Assert.AreEqual(2, bowl.Fishes.Length);
 
-			CollectedBowl bowl = (CollectedBowl) mpc.GetComponentInstance(typeof (CollectedBowl));
-			Cod tom = (Cod) mpc.GetComponentInstance("Tom");
-			Assert.AreEqual(4, bowl.fishes.Length);
-			Assert.AreEqual(2, bowl.cods.Length);
-			Assert.IsFalse(new ArrayList(bowl.cods).Contains(tom));
-		}
+            try
+            {
+                Assert.AreSame(bowl.Fishes[0], bowl.Fishes[1]);
+                Assert.Fail("Should not be the same fish");
+            }
+            catch (AssertionException)
+            {
+            }
+        }
 
-		/*
+        /*
 		[Test]
 		public void DifferentCollectiveTypesAreResolved() 
 		{
@@ -302,92 +282,120 @@ namespace PicoContainer.Defaults
 			Assert.IsNotNull(pico.GetComponentInstance(typeof(DependsOnAll)));
 		}*/
 
-		[Test]
-		public void Verify()
-		{
-			IMutablePicoContainer pico = new DefaultPicoContainer();
-			CollectionComponentParameter parameterNonEmpty = CollectionComponentParameter.ARRAY;
-			pico.RegisterComponentImplementation(typeof (Shark));
-			parameterNonEmpty.Verify(pico, null, typeof (Fish[]));
+        [Test]
+        public void Verify()
+        {
+            IMutablePicoContainer pico = new DefaultPicoContainer();
+            CollectionComponentParameter parameterNonEmpty = CollectionComponentParameter.ARRAY;
+            pico.RegisterComponentImplementation(typeof (Shark));
+            parameterNonEmpty.Verify(pico, null, typeof (Fish[]));
 
-			try
-			{
-				parameterNonEmpty.Verify(pico, null, typeof (Cod[]));
-				Assert.Fail("PicoIntrospectionException expected");
-			}
-			catch (PicoIntrospectionException e)
-			{
-				Assert.IsTrue(e.Message.IndexOf(typeof (Cod).Name) > -1);
-			}
+            try
+            {
+                parameterNonEmpty.Verify(pico, null, typeof (Cod[]));
+                Assert.Fail("PicoIntrospectionException expected");
+            }
+            catch (PicoIntrospectionException e)
+            {
+                Assert.IsTrue(e.Message.IndexOf(typeof (Cod).Name) > -1);
+            }
 
-			CollectionComponentParameter parameterEmpty = CollectionComponentParameter.ARRAY_ALLOW_EMPTY;
-			parameterEmpty.Verify(pico, null, typeof (Fish[]));
-			parameterEmpty.Verify(pico, null, typeof (Cod[]));
-		}
+            CollectionComponentParameter parameterEmpty = CollectionComponentParameter.ARRAY_ALLOW_EMPTY;
+            parameterEmpty.Verify(pico, null, typeof (Fish[]));
+            parameterEmpty.Verify(pico, null, typeof (Cod[]));
+        }
 
-	}
+        [Test]
+        public void WillOmitSelfFromCollection()
+        {
+            IMutablePicoContainer pico = GetDefaultPicoContainer();
+            pico.RegisterComponentImplementation(typeof (SimpleTouchable));
+            pico.RegisterComponentImplementation(typeof (TouchableObserver));
+            ITouchable observer = (ITouchable) pico.GetComponentInstanceOfType(typeof (TouchableObserver));
+            Assert.IsNotNull(observer);
+            observer.Touch();
+            SimpleTouchable touchable = (SimpleTouchable) pico.GetComponentInstanceOfType(typeof (SimpleTouchable));
+            Assert.IsTrue(touchable.WasTouched);
+        }
 
-	#region Test Classes
+        [Test]
+        public void WillRemoveComponentsWithMatchingKeyFromParent()
+        {
+            IMutablePicoContainer parent = new DefaultPicoContainer();
+            parent.RegisterComponentImplementation("Tom", typeof (Cod));
+            parent.RegisterComponentImplementation("Dick", typeof (Cod));
+            parent.RegisterComponentImplementation("Harry", typeof (Cod));
 
-	public interface Fish
-	{
-	}
+            IMutablePicoContainer child = new DefaultPicoContainer(parent);
+            child.RegisterComponentImplementation("Dick", typeof (Shark));
+            child.RegisterComponentImplementation(typeof (Bowl));
+            Bowl bowl = (Bowl) child.GetComponentInstance(typeof (Bowl));
+            Assert.AreEqual(3, bowl.fishes.Length);
+            Assert.AreEqual(2, bowl.cods.Length);
+        }
+    }
 
-	public class Cod : Fish
-	{
-		public override String ToString()
-		{
-			return "Cod";
-		}
-	}
+    #region Test Classes
 
-	public class Shark : Fish
-	{
-		public override String ToString()
-		{
-			return "Shark";
-		}
-	}
+    public interface Fish
+    {
+    }
 
-	public class Bowl
-	{
-		public Cod[] cods;
-		public Fish[] fishes;
+    public class Cod : Fish
+    {
+        public override String ToString()
+        {
+            return "Cod";
+        }
+    }
 
-		public Bowl(Cod[] cods, Fish[] fishes)
-		{
-			this.cods = cods;
-			this.fishes = fishes;
-		}
-	}
+    public class Shark : Fish
+    {
+        public override String ToString()
+        {
+            return "Shark";
+        }
+    }
 
-	public class CollectedBowl 
-	{
-		public Cod[] cods;
-		public Fish[] fishes;
+    public class Bowl
+    {
+        public Cod[] cods;
+        public Fish[] fishes;
 
-		public CollectedBowl(ICollection cods, ICollection fishes) 
-		{
-			this.cods = (Cod[]) new ArrayList(cods).ToArray(typeof(Cod));
-			this.fishes = (Fish[]) new ArrayList(fishes).ToArray(typeof(Fish));
-		}
-	}
+        public Bowl(Cod[] cods, Fish[] fishes)
+        {
+            this.cods = cods;
+            this.fishes = fishes;
+        }
+    }
 
-	/// <summary>
-	/// This would be so much easier with anonymous classes!
-	/// </summary>
-	public class SampleCollectionComponentParameter : CollectionComponentParameter
-	{
-		public SampleCollectionComponentParameter(Type componentValueType, bool emptyCollection) 
-			: base(componentValueType, emptyCollection)
-		{
-		}
+    public class CollectedBowl
+    {
+        public Cod[] cods;
+        public Fish[] fishes;
 
-		protected override bool Evaluate(IComponentAdapter componentAdapter)
-		{
-			return !"Tom".Equals(componentAdapter.ComponentKey);	
-		}
-	}
+        public CollectedBowl(ICollection cods, ICollection fishes)
+        {
+            this.cods = (Cod[]) new ArrayList(cods).ToArray(typeof (Cod));
+            this.fishes = (Fish[]) new ArrayList(fishes).ToArray(typeof (Fish));
+        }
+    }
 
-	#endregion
+    /// <summary>
+    /// This would be so much easier with anonymous classes!
+    /// </summary>
+    public class SampleCollectionComponentParameter : CollectionComponentParameter
+    {
+        public SampleCollectionComponentParameter(Type componentValueType, bool emptyCollection)
+            : base(componentValueType, emptyCollection)
+        {
+        }
+
+        protected override bool Evaluate(IComponentAdapter componentAdapter)
+        {
+            return !"Tom".Equals(componentAdapter.ComponentKey);
+        }
+    }
+
+    #endregion
 }

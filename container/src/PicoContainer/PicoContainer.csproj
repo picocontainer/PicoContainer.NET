@@ -1,385 +1,274 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{78D4D840-D376-4FB7-89A6-B24C22E057F7}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "PicoContainer"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "PicoContainer"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.XML"
-                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
-                />
-                <Reference
-                    Name = "Castle.DynamicProxy"
-                    AssemblyName = "Castle.DynamicProxy"
-                    HintPath = "..\..\lib\Castle.DynamicProxy.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ILifecycleManager.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IMutablePicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IParameter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IPicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IStartable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicoException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicoInitializationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicoInstantiationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicoIntrospectionException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicoRegistrationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicoVerificationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\AbstractDelegatingMutablePicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\CachingPicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingCachingPicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingPicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\AbstractComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\AmbiguousComponentResolutionException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\AssignabilityRegistrationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\BasicComponentParameter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CachingComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CachingComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CollectionComponentParameter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ComponentParameter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ConstantParameter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ConstructorInjectionComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ConstructorInjectionComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CyclicDependencyException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DecoratingComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DecoratingComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultLifecycleManager.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultPicoContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DuplicateComponentKeyRegistrationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\IComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\IComponentMonitor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ICyclicDependencyGuard.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\InstanceComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\InstantiatingComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\IObjectReference.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ISwappable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\NotConcreteRegistrationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\NullComponentMonitor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\PicoInvocationTargetInitializationException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SetterInjectionComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SetterInjectionComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SimpleReference.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SynchronizedComponentAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SynchronizedComponentAdapterFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ThreadStaticCyclicDependencyGuard.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\TooManySatisfiableConstructorsException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\UnsatisfiableDependenciesException.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Monitors\ConsoleComponentMonitor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Utils\StringUtils.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Utils\TypeUtls.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78D4D840-D376-4FB7-89A6-B24C22E057F7}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>PicoContainer</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PicoContainer</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.DynamicProxy, Version=1.1.5.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Castle.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.XML">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Alternatives\AbstractDelegatingMutablePicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\CachingPicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingCachingPicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingPicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\AbstractComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\AmbiguousComponentResolutionException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\AssignabilityRegistrationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\BasicComponentParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CachingComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CachingComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CollectionComponentParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ComponentParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ConstantParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ConstructorInjectionComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ConstructorInjectionComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CyclicDependencyException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DecoratingComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DecoratingComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultLifecycleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultPicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DuplicateComponentKeyRegistrationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\IComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\IComponentMonitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ICyclicDependencyGuard.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\InstanceComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\InstantiatingComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\IObjectReference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ISwappable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\NotConcreteRegistrationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\NullComponentMonitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\PicoInvocationTargetInitializationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SetterInjectionComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SetterInjectionComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SimpleReference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SynchronizedComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SynchronizedComponentAdapterFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ThreadStaticCyclicDependencyGuard.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\TooManySatisfiableConstructorsException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\UnsatisfiableDependenciesException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IComponentAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ILifecycleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IMutablePicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IPicoContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IStartable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\ConsoleComponentMonitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PicoException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PicoInitializationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PicoInstantiationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PicoIntrospectionException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PicoRegistrationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PicoVerificationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\StringUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\TypeUtls.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

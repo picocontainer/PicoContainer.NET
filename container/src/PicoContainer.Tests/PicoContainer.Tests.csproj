@@ -1,345 +1,257 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{60B1A189-2ADB-4E4B-9952-B4E8748065BF}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "PicoContainer.Tests"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "PicoContainer.Tests"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.XML"
-                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
-                />
-                <Reference
-                    Name = "PicoContainer"
-                    Project = "{78D4D840-D376-4FB7-89A6-B24C22E057F7}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "nmock"
-                    AssemblyName = "nmock"
-                    HintPath = "..\..\lib\nmock.dll"
-                />
-                <Reference
-                    Name = "nunit.framework"
-                    AssemblyName = "nunit.framework"
-                    HintPath = "..\..\lib\nunit.framework.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\AbstractImplementationHidingPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\CachingPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingCachingPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Alternatives\ImplementationHidingWithDefaultPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CachingComponentAdapterFactoryTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ChildContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CollectionComponentParameterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ComponentKeysTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ConstructorInjectionComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\CyclicDependencyGuardTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultComponentAdapterFactoryTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultComponentRegistryTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultLazyInstantiationTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultLifecycleManagerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultMultipleConstructorTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultPicoContainerLifecycleTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultPicoContainerTreeSerializationTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DefaultPicoContainerUnregisterComponentTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\DelegatingPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\InstanceComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\ParameterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SetterInjectionComponentAdapterFactoryTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\SetterInjectionComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Defaults\TransientComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Monitors\ConsoleComponentMonitorTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tck\AbstractComponentAdapterFactoryTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tck\AbstractComponentAdapterTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tck\AbstractLazyInstantiationTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tck\AbstractMultipleConstructorTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tck\AbstractPicoContainerTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\AlternativeTouchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\DecoratedTouchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\DependsOnTouchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\DependsOnTwoComponents.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\IDictionairy.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\InaccessibleStartComponent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\IThesaurus.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\ITouchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\IWashable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\PersonBean.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\PurseBean.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\SimpleTouchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestModel\WashableTouchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{60B1A189-2ADB-4E4B-9952-B4E8748065BF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>PicoContainer.Tests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PicoContainer.Tests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.DynamicProxy, Version=1.1.5.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Castle.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="nmock">
+      <Name>nmock</Name>
+      <HintPath>..\..\lib\nmock.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.6.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.XML">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\PicoContainer\PicoContainer.csproj">
+      <Name>PicoContainer</Name>
+      <Project>{78D4D840-D376-4FB7-89A6-B24C22E057F7}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Alternatives\AbstractImplementationHidingPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\CachingPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingCachingPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alternatives\ImplementationHidingWithDefaultPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CachingComponentAdapterFactoryTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ChildContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CollectionComponentParameterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ComponentKeysTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ConstructorInjectionComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\CyclicDependencyGuardTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultComponentAdapterFactoryTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultComponentRegistryTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultLazyInstantiationTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultLifecycleManagerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultMultipleConstructorTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultPicoContainerLifecycleTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultPicoContainerTreeSerializationTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DefaultPicoContainerUnregisterComponentTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\DelegatingPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\InstanceComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\ParameterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SetterInjectionComponentAdapterFactoryTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\SetterInjectionComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Defaults\TransientComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\ConsoleComponentMonitorTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tck\AbstractComponentAdapterFactoryTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tck\AbstractComponentAdapterTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tck\AbstractLazyInstantiationTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tck\AbstractMultipleConstructorTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tck\AbstractPicoContainerTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\AlternativeTouchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\DecoratedTouchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\DependsOnTouchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\DependsOnTwoComponents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\IDictionairy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\InaccessibleStartComponent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\IThesaurus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\ITouchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\IWashable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\PersonBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\PurseBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\SimpleTouchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestModel\WashableTouchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
