@@ -13,15 +13,15 @@ using System;
 
 namespace PicoContainer
 {
-	/// <summary>
-	/// Exception that is thrown when there is a problem creating an instance of a container or some
-	/// other part of the PicoContainer api, for example, when an invocation through the reflection api fails.  
-	/// </summary>
-	[Serializable]
-	public class PicoInstantiationException : PicoInitializationException
-	{
-		protected PicoInstantiationException(string message, Exception cause) : base(message, cause)
-		{
-		}
-	}
+    /// <summary>
+    /// Exception that is thrown when there is a problem creating an instance of a container or some
+    /// other part of the PicoContainer api, for example, when an invocation through the reflection api fails.  
+    /// </summary>
+    [Serializable]
+    public class PicoInstantiationException : PicoInitializationException
+    {
+        protected PicoInstantiationException(string message, Exception cause) : base(message, cause)
+        {
+        }
+    }
 }

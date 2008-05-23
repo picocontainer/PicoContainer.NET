@@ -10,73 +10,76 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	/// Decorates a Component adapter, used for combining the functionality of multiple IComponentAdapters
-	/// </summary>
-	[Serializable]
-	public class DecoratingComponentAdapter : IComponentAdapter
-	{
-		private IComponentAdapter theDelegate;
+    /// <summary>
+    /// Decorates a Component adapter, used for combining the functionality of multiple IComponentAdapters
+    /// </summary>
+    [Serializable]
+    public class DecoratingComponentAdapter : IComponentAdapter
+    {
+        private IComponentAdapter theDelegate;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="theDelegate">The component adapter to decorate</param>
-		public DecoratingComponentAdapter(IComponentAdapter theDelegate)
-		{
-			this.theDelegate = theDelegate;
-		}
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="theDelegate">The component adapter to decorate</param>
+        public DecoratingComponentAdapter(IComponentAdapter theDelegate)
+        {
+            this.theDelegate = theDelegate;
+        }
 
-		/// <summary>
-		/// Returns the component's key
-		/// </summary>
-		virtual public object ComponentKey
-		{
-			get { return theDelegate.ComponentKey; }
-		}
+        /// <summary>
+        /// The delegate decorated by this adapter
+        /// </summary>
+        public virtual IComponentAdapter Delegate
+        {
+            get { return theDelegate; }
+        }
 
-		/// <summary>
-		/// Returns the component's implementing type
-		/// </summary>
-		virtual public Type ComponentImplementation
-		{
-			get { return theDelegate.ComponentImplementation; }
-		}
+        #region IComponentAdapter Members
 
-		public virtual object GetComponentInstance(IPicoContainer container)
-		{
-			return theDelegate.GetComponentInstance(container);
-		}
+        /// <summary>
+        /// Returns the component's key
+        /// </summary>
+        public virtual object ComponentKey
+        {
+            get { return theDelegate.ComponentKey; }
+        }
 
-		/// <summary>
-		/// Verify that all dependencies for this adapter can be satisifed.
-		/// </summary>
-		/// <exception cref="PicoContainer.PicoIntrospectionException">if the verification failed</exception>
-		public virtual void Verify(IPicoContainer container)
-		{
-			theDelegate.Verify(container);
-		}
+        /// <summary>
+        /// Returns the component's implementing type
+        /// </summary>
+        public virtual Type ComponentImplementation
+        {
+            get { return theDelegate.ComponentImplementation; }
+        }
 
-		/// <summary>
-		/// The delegate decorated by this adapter
-		/// </summary>
-		public virtual IComponentAdapter Delegate
-		{
-			get { return theDelegate; }
-		}
+        public virtual object GetComponentInstance(IPicoContainer container)
+        {
+            return theDelegate.GetComponentInstance(container);
+        }
 
-		/// 
-		/// <summary>
-		///  Property containing the container in which this instance is registered, called by the container upon registration
-		/// </summary>
-		public virtual IPicoContainer Container
-		{
-			get { return theDelegate.Container; }
-			set { theDelegate.Container = value; }
-		}
-	}
+        /// <summary>
+        /// Verify that all dependencies for this adapter can be satisifed.
+        /// </summary>
+        /// <exception cref="PicoContainer.PicoIntrospectionException">if the verification failed</exception>
+        public virtual void Verify(IPicoContainer container)
+        {
+            theDelegate.Verify(container);
+        }
+
+        /// 
+        /// <summary>
+        ///  Property containing the container in which this instance is registered, called by the container upon registration
+        /// </summary>
+        public virtual IPicoContainer Container
+        {
+            get { return theDelegate.Container; }
+            set { theDelegate.Container = value; }
+        }
+
+        #endregion
+    }
 }

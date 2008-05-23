@@ -11,7 +11,8 @@
 using System;
 using System.Collections;
 using System.Runtime.Serialization;
-using PicoContainer;
+using System.Text;
+using PicoContainer.Utils;
 
 /**
  * @author Aslak Helles&oslash;y
@@ -20,77 +21,83 @@ using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class UnsatisfiableDependenciesException : PicoIntrospectionException
-	{
-		private IComponentAdapter instantiatingComponentAdapter;
-		private IList failedDependencies;
+    [Serializable]
+    public class UnsatisfiableDependenciesException : PicoIntrospectionException
+    {
+        private IList failedDependencies;
+        private IComponentAdapter instantiatingComponentAdapter;
 
-		public UnsatisfiableDependenciesException(IComponentAdapter instantiatingComponentAdapter, IList failedDependencies)
-		{
-			this.instantiatingComponentAdapter = instantiatingComponentAdapter;
-			this.failedDependencies = failedDependencies;
-		}
+        public UnsatisfiableDependenciesException(IComponentAdapter instantiatingComponentAdapter,
+                                                  IList failedDependencies)
+        {
+            this.instantiatingComponentAdapter = instantiatingComponentAdapter;
+            this.failedDependencies = failedDependencies;
+        }
 
-		public UnsatisfiableDependenciesException()
-		{
-		}
+        public UnsatisfiableDependenciesException()
+        {
+        }
 
-		public UnsatisfiableDependenciesException(Exception ex) : base(ex)
-		{
-		}
+        public UnsatisfiableDependenciesException(Exception ex) : base(ex)
+        {
+        }
 
-		public UnsatisfiableDependenciesException(string message) : base(message)
-		{
-		}
+        public UnsatisfiableDependenciesException(string message) : base(message)
+        {
+        }
 
-		public UnsatisfiableDependenciesException(string message, Exception ex) : base(message, ex)
-		{
-		}
+        public UnsatisfiableDependenciesException(string message, Exception ex) : base(message, ex)
+        {
+        }
 
-		protected UnsatisfiableDependenciesException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
-		}
+        protected UnsatisfiableDependenciesException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
 
-		public override string Message
-		{
-			get
-			{
-				System.Text.StringBuilder b = new System.Text.StringBuilder(instantiatingComponentAdapter.ComponentImplementation.Name).Append(" doesn't have any satisfiable constructors. Unsatisfiable dependencies: ");
-				b.Append(Utils.StringUtils.ArrayToString(((ArrayList) failedDependencies).ToArray()));
-				return b.ToString();
-			}
-		}
+        public override string Message
+        {
+            get
+            {
+                StringBuilder b =
+                    new StringBuilder(instantiatingComponentAdapter.ComponentImplementation.Name).Append(
+                        " doesn't have any satisfiable constructors. Unsatisfiable dependencies: ");
+                b.Append(StringUtils.ArrayToString(((ArrayList) failedDependencies).ToArray()));
+                return b.ToString();
+            }
+        }
 
-		public IComponentAdapter UnsatisfiableComponentAdapter
-		{
-			get { return instantiatingComponentAdapter; }
-		}
+        public IComponentAdapter UnsatisfiableComponentAdapter
+        {
+            get { return instantiatingComponentAdapter; }
+        }
 
-		public IList UnsatisfiableDependencies
-		{
-			get { return failedDependencies; }
-		}
+        public IList UnsatisfiableDependencies
+        {
+            get { return failedDependencies; }
+        }
 
-		public override bool Equals(object o)
-		{
-			if (this == o) return true;
-			if (!(o is UnsatisfiableDependenciesException)) return false;
+        public override bool Equals(object o)
+        {
+            if (this == o) return true;
+            if (!(o is UnsatisfiableDependenciesException)) return false;
 
-			UnsatisfiableDependenciesException noSatisfiableConstructorsException = (UnsatisfiableDependenciesException) o;
+            UnsatisfiableDependenciesException noSatisfiableConstructorsException =
+                (UnsatisfiableDependenciesException) o;
 
-			if (!instantiatingComponentAdapter.Equals(noSatisfiableConstructorsException.instantiatingComponentAdapter)) return false;
-			if (!failedDependencies.Equals(noSatisfiableConstructorsException.failedDependencies)) return false;
+            if (!instantiatingComponentAdapter.Equals(noSatisfiableConstructorsException.instantiatingComponentAdapter))
+                return false;
+            if (!failedDependencies.Equals(noSatisfiableConstructorsException.failedDependencies)) return false;
 
-			return true;
-		}
+            return true;
+        }
 
-		public override int GetHashCode()
-		{
-			int result;
-			result = instantiatingComponentAdapter.GetHashCode();
-			result = 29*result + failedDependencies.GetHashCode();
-			return result;
-		}
-	}
+        public override int GetHashCode()
+        {
+            int result;
+            result = instantiatingComponentAdapter.GetHashCode();
+            result = 29*result + failedDependencies.GetHashCode();
+            return result;
+        }
+    }
 }

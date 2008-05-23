@@ -10,24 +10,25 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	/// Summary description for SynchronizedComponentAdapterFactory.
-	/// </summary>
-	[Serializable]
-	public class SynchronizedComponentAdapterFactory : DecoratingComponentAdapterFactory
-	{
-		public SynchronizedComponentAdapterFactory(IComponentAdapterFactory theDelegate) : base(theDelegate)
-		{
-		}
+    /// <summary>
+    /// Summary description for SynchronizedComponentAdapterFactory.
+    /// </summary>
+    [Serializable]
+    public class SynchronizedComponentAdapterFactory : DecoratingComponentAdapterFactory
+    {
+        public SynchronizedComponentAdapterFactory(IComponentAdapterFactory theDelegate) : base(theDelegate)
+        {
+        }
 
-		public override IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation, IParameter[] parameters)
-		{
-			return new SynchronizedComponentAdapter(base.CreateComponentAdapter(componentKey, componentImplementation, parameters));
-		}
-	}
-
+        public override IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation,
+                                                                 IParameter[] parameters)
+        {
+            return
+                new SynchronizedComponentAdapter(
+                    base.CreateComponentAdapter(componentKey, componentImplementation, parameters));
+        }
+    }
 }

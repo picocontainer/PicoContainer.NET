@@ -10,23 +10,25 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	/// Summary description for CachingComponentAdapterFactory.
-	/// </summary>
-	[Serializable]
-	public class CachingComponentAdapterFactory : DecoratingComponentAdapterFactory
-	{
-		public CachingComponentAdapterFactory(IComponentAdapterFactory theDelegate) : base(theDelegate)
-		{
-		}
+    /// <summary>
+    /// Summary description for CachingComponentAdapterFactory.
+    /// </summary>
+    [Serializable]
+    public class CachingComponentAdapterFactory : DecoratingComponentAdapterFactory
+    {
+        public CachingComponentAdapterFactory(IComponentAdapterFactory theDelegate) : base(theDelegate)
+        {
+        }
 
-		public override IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation, IParameter[] parameters)
-		{
-			return new CachingComponentAdapter(base.CreateComponentAdapter(componentKey, componentImplementation, parameters));
-		}
-	}
+        public override IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation,
+                                                                 IParameter[] parameters)
+        {
+            return
+                new CachingComponentAdapter(
+                    base.CreateComponentAdapter(componentKey, componentImplementation, parameters));
+        }
+    }
 }

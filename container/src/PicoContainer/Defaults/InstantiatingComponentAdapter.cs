@@ -11,100 +11,106 @@
 
 using System;
 using System.Reflection;
-using PicoContainer;
 using PicoContainer.Utils;
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	/// This ComponentAdapter will instantiate a new object for each call to 
-	/// <see cref="PicoContainer.IComponentAdapter.ComponentInstance"/>
-	/// That means that
-	/// when used with a PicoContainer, getComponentInstance will return a new
-	/// object each time.
-	/// </summary>
-	[Serializable]
-	public abstract class InstantiatingComponentAdapter : AbstractComponentAdapter
-	{
-		[NonSerialized] protected DefaultVerifyingGuard verifyingGuard;
-		protected IParameter[] parameters;
-		/// <summary>
-		/// Flag indicating instanciation of non-public classes.
-		/// </summary>
-		protected bool allowNonPublicClasses;
+    /// <summary>
+    /// This ComponentAdapter will instantiate a new object for each call to 
+    /// <see cref="PicoContainer.IComponentAdapter.ComponentInstance"/>
+    /// That means that
+    /// when used with a PicoContainer, getComponentInstance will return a new
+    /// object each time.
+    /// </summary>
+    [Serializable]
+    public abstract class InstantiatingComponentAdapter : AbstractComponentAdapter
+    {
+        /// <summary>
+        /// Flag indicating instanciation of non-public classes.
+        /// </summary>
+        protected bool allowNonPublicClasses;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="componentKey">The component's key</param>
-		/// <param name="componentImplementation">The component implementing type</param>
-		/// <param name="parameters">Parameters used to initialize the component</param>
-		/// <param name="allowNonPublicClasses">flag to allow instantiation of non-public classes.</param>
-		public InstantiatingComponentAdapter(object componentKey, Type componentImplementation, IParameter[] parameters, bool allowNonPublicClasses) 
-			: base(componentKey, componentImplementation)
-		{
-			this.parameters = parameters;
-			this.allowNonPublicClasses = allowNonPublicClasses;
-		}
+        protected IParameter[] parameters;
+        [NonSerialized] protected DefaultVerifyingGuard verifyingGuard;
 
-		public abstract override object GetComponentInstance(IPicoContainer container);
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="componentKey">The component's key</param>
+        /// <param name="componentImplementation">The component implementing type</param>
+        /// <param name="parameters">Parameters used to initialize the component</param>
+        /// <param name="allowNonPublicClasses">flag to allow instantiation of non-public classes.</param>
+        public InstantiatingComponentAdapter(object componentKey, Type componentImplementation, IParameter[] parameters,
+                                             bool allowNonPublicClasses)
+            : base(componentKey, componentImplementation)
+        {
+            this.parameters = parameters;
+            this.allowNonPublicClasses = allowNonPublicClasses;
+        }
 
-		/// <summary>
-		/// Creates default parameters if no parameters are passed in.
-		/// </summary>
-		/// <param name="parameters">The types of the required parameters</param>
-		/// <returns>The default parameters</returns>
-		protected IParameter[] CreateDefaultParameters(Type[] parameters)
-		{
-			IParameter[] componentParameters = new IParameter[parameters.Length];
-			for (int i = 0; i < parameters.Length; i++) 
-			{
-				componentParameters[i] = ComponentParameter.DEFAULT;
-			}
-			return componentParameters;
-		}
+        public abstract override object GetComponentInstance(IPicoContainer container);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[Serializable]
-		protected class DefaultVerifyingGuard : ThreadStaticCyclicDependencyGuard
-		{
-			protected IPicoContainer guardedContainer;
-			protected InstantiatingComponentAdapter ica;
+        /// <summary>
+        /// Creates default parameters if no parameters are passed in.
+        /// </summary>
+        /// <param name="parameters">The types of the required parameters</param>
+        /// <returns>The default parameters</returns>
+        protected IParameter[] CreateDefaultParameters(Type[] parameters)
+        {
+            IParameter[] componentParameters = new IParameter[parameters.Length];
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                componentParameters[i] = ComponentParameter.DEFAULT;
+            }
+            return componentParameters;
+        }
 
-			public DefaultVerifyingGuard(InstantiatingComponentAdapter ica, IPicoContainer guardedContainer)
-			{
-				this.ica = ica;
-				this.guardedContainer = guardedContainer;
-			}
+        protected abstract ConstructorInfo GetGreediestSatisfiableConstructor(IPicoContainer container);
 
-			// TODO move to constructor injection adapter ... mward
-			public override object Run()
-			{
-				ConstructorInfo constructor = ica.GetGreediestSatisfiableConstructor(guardedContainer);
-				Type[] parameterTypes = TypeUtils.GetParameterTypes(constructor.GetParameters());
-				IParameter[] currentParameters = ica.parameters != null ? ica.parameters : ica.CreateDefaultParameters(parameterTypes);
-				for (int i = 0; i < currentParameters.Length; i++)
-				{
-					currentParameters[i].Verify(guardedContainer, ica, parameterTypes[i]);
-				}
+        public override void Verify(IPicoContainer container)
+        {
+            if (verifyingGuard == null)
+            {
+                verifyingGuard = new DefaultVerifyingGuard(this, container);
+            }
 
-				return null;
-			}
-		}
+            verifyingGuard.Observe(ComponentImplementation);
+        }
 
-		protected abstract ConstructorInfo GetGreediestSatisfiableConstructor(IPicoContainer container);
+        #region Nested type: DefaultVerifyingGuard
 
-		public override void Verify(IPicoContainer container)
-		{
-			if (verifyingGuard == null) 
-			{
-				verifyingGuard = new DefaultVerifyingGuard(this, container);
-			}
+        /// <summary>
+        /// 
+        /// </summary>
+        [Serializable]
+        protected class DefaultVerifyingGuard : ThreadStaticCyclicDependencyGuard
+        {
+            protected IPicoContainer guardedContainer;
+            protected InstantiatingComponentAdapter ica;
 
-			verifyingGuard.Observe(ComponentImplementation);
-		}
+            public DefaultVerifyingGuard(InstantiatingComponentAdapter ica, IPicoContainer guardedContainer)
+            {
+                this.ica = ica;
+                this.guardedContainer = guardedContainer;
+            }
 
-	}
+            // TODO move to constructor injection adapter ... mward
+            public override object Run()
+            {
+                ConstructorInfo constructor = ica.GetGreediestSatisfiableConstructor(guardedContainer);
+                Type[] parameterTypes = TypeUtils.GetParameterTypes(constructor.GetParameters());
+                IParameter[] currentParameters = ica.parameters != null
+                                                     ? ica.parameters
+                                                     : ica.CreateDefaultParameters(parameterTypes);
+                for (int i = 0; i < currentParameters.Length; i++)
+                {
+                    currentParameters[i].Verify(guardedContainer, ica, parameterTypes[i]);
+                }
+
+                return null;
+            }
+        }
+
+        #endregion
+    }
 }

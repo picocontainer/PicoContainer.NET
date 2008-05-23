@@ -11,48 +11,48 @@
 
 using System;
 using System.Runtime.Serialization;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class DuplicateComponentKeyRegistrationException : PicoRegistrationException
-	{
-		private object key;
+    [Serializable]
+    public class DuplicateComponentKeyRegistrationException : PicoRegistrationException
+    {
+        private object key;
 
-		public DuplicateComponentKeyRegistrationException(object key)
-		{
-			this.key = key;
-		}
+        public DuplicateComponentKeyRegistrationException(object key)
+        {
+            this.key = key;
+        }
 
-		public DuplicateComponentKeyRegistrationException()
-		{
-		}
+        public DuplicateComponentKeyRegistrationException()
+        {
+        }
 
-		public DuplicateComponentKeyRegistrationException(Exception ex) : base(ex)
-		{
-		}
+        public DuplicateComponentKeyRegistrationException(Exception ex) : base(ex)
+        {
+        }
 
-		public DuplicateComponentKeyRegistrationException(string message) : base(message)
-		{
-		}
+        public DuplicateComponentKeyRegistrationException(string message) : base(message)
+        {
+        }
 
-		public DuplicateComponentKeyRegistrationException(string message, Exception ex) : base(message, ex)
-		{
-		}
+        public DuplicateComponentKeyRegistrationException(string message, Exception ex) : base(message, ex)
+        {
+        }
 
-		protected DuplicateComponentKeyRegistrationException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
-		}
+        protected DuplicateComponentKeyRegistrationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
 
-		public object DuplicateKey
-		{
-			get { return key; }
-		}
+        public object DuplicateKey
+        {
+            get { return key; }
+        }
 
-		public override String Message
-		{
-			get { return "Key " + key.GetType().Name + " duplicated"; }
-		}
-	}
+        public override String Message
+        {
+            get { return "Key " + key.GetType().Name + " duplicated"; }
+        }
+    }
 }

@@ -10,23 +10,27 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class DecoratingComponentAdapterFactory : IComponentAdapterFactory
-	{
-		private readonly IComponentAdapterFactory theDelegate;
+    [Serializable]
+    public class DecoratingComponentAdapterFactory : IComponentAdapterFactory
+    {
+        private readonly IComponentAdapterFactory theDelegate;
 
-		public DecoratingComponentAdapterFactory(IComponentAdapterFactory theDelegate)
-		{
-			this.theDelegate = theDelegate;
-		}
+        public DecoratingComponentAdapterFactory(IComponentAdapterFactory theDelegate)
+        {
+            this.theDelegate = theDelegate;
+        }
 
-		public virtual IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation, IParameter[] parameters)
-		{
-			return theDelegate.CreateComponentAdapter(componentKey, componentImplementation, parameters);
-		}
-	}
+        #region IComponentAdapterFactory Members
+
+        public virtual IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation,
+                                                                IParameter[] parameters)
+        {
+            return theDelegate.CreateComponentAdapter(componentKey, componentImplementation, parameters);
+        }
+
+        #endregion
+    }
 }

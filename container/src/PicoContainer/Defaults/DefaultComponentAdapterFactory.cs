@@ -10,16 +10,22 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class DefaultComponentAdapterFactory : IComponentAdapterFactory
-	{
-		public IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation, IParameter[] parameters)
-		{
-			return new CachingComponentAdapter(new ConstructorInjectionComponentAdapter(componentKey, componentImplementation, parameters));
-		}
-	}
+    [Serializable]
+    public class DefaultComponentAdapterFactory : IComponentAdapterFactory
+    {
+        #region IComponentAdapterFactory Members
+
+        public IComponentAdapter CreateComponentAdapter(object componentKey, Type componentImplementation,
+                                                        IParameter[] parameters)
+        {
+            return
+                new CachingComponentAdapter(
+                    new ConstructorInjectionComponentAdapter(componentKey, componentImplementation, parameters));
+        }
+
+        #endregion
+    }
 }

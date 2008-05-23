@@ -11,71 +11,79 @@
 
 using System;
 using Castle.DynamicProxy;
-using PicoContainer;
 using PicoContainer.Defaults;
 
 namespace PicoContainer.Alternatives
 {
-	[Serializable]
-	public class ImplementationHidingComponentAdapter : DecoratingComponentAdapter
-	{
-		private bool strict = false;
+    [Serializable]
+    public class ImplementationHidingComponentAdapter : DecoratingComponentAdapter
+    {
+        private bool strict = false;
 
-		public ImplementationHidingComponentAdapter(IComponentAdapter theDelegate, bool strict) : base(theDelegate)
-		{
-			this.strict = strict;
-		}
+        public ImplementationHidingComponentAdapter(IComponentAdapter theDelegate, bool strict) : base(theDelegate)
+        {
+            this.strict = strict;
+        }
 
-		public ImplementationHidingComponentAdapter(IComponentAdapter theDelegate) : base(theDelegate)
-		{
-		}
+        public ImplementationHidingComponentAdapter(IComponentAdapter theDelegate) : base(theDelegate)
+        {
+        }
 
-		public override Object GetComponentInstance(IPicoContainer container)
-		{
-			Object componentKey = Delegate.ComponentKey;
-			Type[] types = null;
-			if (componentKey is Type && ((Type) Delegate.ComponentKey).IsInterface)
-			{
-				types = new Type[] {(Type) Delegate.ComponentKey};
-			}
-			else if (componentKey is Type[])
-			{
-				types = (Type[]) componentKey;
-			}
-			else
-			{
-				if (strict)
-				{
-					throw new PicoIntrospectionException("In strict mode, " 
-						+ GetType().Name 
-						+ " only allows components registered with interface keys (System.Type or System.Type[])");
-				}
-				return Delegate.GetComponentInstance(container);
-			}
+        public override Object GetComponentInstance(IPicoContainer container)
+        {
+            Object componentKey = Delegate.ComponentKey;
+            Type[] types = null;
+            if (componentKey is Type && ((Type) Delegate.ComponentKey).IsInterface)
+            {
+                types = new Type[] {(Type) Delegate.ComponentKey};
+            }
+            else if (componentKey is Type[])
+            {
+                types = (Type[]) componentKey;
+            }
+            else
+            {
+                if (strict)
+                {
+                    throw new PicoIntrospectionException("In strict mode, "
+                                                         + GetType().Name
+                                                         +
+                                                         " only allows components registered with interface keys (System.Type or System.Type[])");
+                }
+                return Delegate.GetComponentInstance(container);
+            }
 
-			return CreateProxy(types, container);
-		}
+            return CreateProxy(types, container);
+        }
 
-		private Object CreateProxy(Type[] interfaces, IPicoContainer container) 
-		{
-			try 
-			{
-				ProxyGenerator proxyGenerator = new ProxyGenerator();
-				object componentInstance = Delegate.GetComponentInstance(container);
-				return proxyGenerator.CreateProxy(interfaces, new PicoInterceptor(), componentInstance);
-			}
-			catch(ArgumentException e)
-			{
-				throw new PicoIntrospectionException("Error creating a dynamic proxy for implementation hiding", e);
-			}
-		}
+        private Object CreateProxy(Type[] interfaces, IPicoContainer container)
+        {
+            try
+            {
+                ProxyGenerator proxyGenerator = new ProxyGenerator();
+                object componentInstance = Delegate.GetComponentInstance(container);
+                return proxyGenerator.CreateProxy(interfaces, new PicoInterceptor(), componentInstance);
+            }
+            catch (ArgumentException e)
+            {
+                throw new PicoIntrospectionException("Error creating a dynamic proxy for implementation hiding", e);
+            }
+        }
 
-		internal class PicoInterceptor : IInterceptor
-		{
-			public object Intercept(IInvocation invocation, params object[] args)
-			{
-				return invocation.Proceed(args);
-			}
-		}
-	}
+        #region Nested type: PicoInterceptor
+
+        internal class PicoInterceptor : IInterceptor
+        {
+            #region IInterceptor Members
+
+            public object Intercept(IInvocation invocation, params object[] args)
+            {
+                return invocation.Proceed(args);
+            }
+
+            #endregion
+        }
+
+        #endregion
+    }
 }

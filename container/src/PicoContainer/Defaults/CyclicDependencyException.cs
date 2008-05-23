@@ -11,41 +11,34 @@
 
 using System;
 using System.Collections;
-using PicoContainer;
 using PicoContainer.Utils;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class CyclicDependencyException : PicoInitializationException
-	{
-		private Stack stack;
+    [Serializable]
+    public class CyclicDependencyException : PicoInitializationException
+    {
+        private Stack stack;
 
-		public CyclicDependencyException(Type element) : base((Exception)null)
-		{
-			this.stack = new Stack ();
-			Push(element);
-		}
-    
-		public void Push(Type element) 
-		{
-			stack.Push(element);
-		}
+        public CyclicDependencyException(Type element) : base((Exception) null)
+        {
+            stack = new Stack();
+            Push(element);
+        }
 
-		public object[] Dependencies
-		{
-			get
-			{
-				return stack.ToArray();
-			} 
-		}
+        public object[] Dependencies
+        {
+            get { return stack.ToArray(); }
+        }
 
-		public override string Message
-		{
-			get
-			{
-				return "Cyclic dependency: " + StringUtils.ArrayToString(stack.ToArray());
-			}
-		}
-	}
+        public override string Message
+        {
+            get { return "Cyclic dependency: " + StringUtils.ArrayToString(stack.ToArray()); }
+        }
+
+        public void Push(Type element)
+        {
+            stack.Push(element);
+        }
+    }
 }

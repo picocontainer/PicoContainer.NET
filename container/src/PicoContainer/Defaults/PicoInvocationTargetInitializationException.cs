@@ -10,23 +10,22 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	/// The PicoInvocationTargetInitializationException is thrown when an error occurs while creating an 
-	/// instance of a registered <see cref="PicoContainer.IComponentAdapter"/>.
-	/// </summary>
-	/// <remarks>
-	/// </remarks>
-	[Serializable]
-	public class PicoInvocationTargetInitializationException : PicoInstantiationException
-	{
-		public PicoInvocationTargetInitializationException(Exception cause) 
-			: base("InvocationTargetException: " + cause.GetType().FullName + " " + cause.Message
-			, cause)
-		{
-		}
-	}
+    /// <summary>
+    /// The PicoInvocationTargetInitializationException is thrown when an error occurs while creating an 
+    /// instance of a registered <see cref="PicoContainer.IComponentAdapter"/>.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    [Serializable]
+    public class PicoInvocationTargetInitializationException : PicoInstantiationException
+    {
+        public PicoInvocationTargetInitializationException(Exception cause)
+            : base("InvocationTargetException: " + cause.GetType().FullName + " " + cause.Message
+                   , cause)
+        {
+        }
+    }
 }

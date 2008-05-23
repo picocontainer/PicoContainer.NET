@@ -1,4 +1,5 @@
 using System;
+
 /*****************************************************************************
  * Copyright (C) PicoContainer Organization. All rights reserved.            *
  * ------------------------------------------------------------------------- *
@@ -12,22 +13,26 @@ using System;
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	/// Summary description for SimpleReference.
-	/// </summary>
-	[Serializable]
-	public class SimpleReference : IObjectReference
-	{
-		private object instance;
+    /// <summary>
+    /// Summary description for SimpleReference.
+    /// </summary>
+    [Serializable]
+    public class SimpleReference : IObjectReference
+    {
+        private object instance;
 
-		public object Get()
-		{
-			return instance;
-		}
+        #region IObjectReference Members
 
-		public void Set(object item)
-		{
-			this.instance = item;
-		}
-	}
+        public object Get()
+        {
+            return instance;
+        }
+
+        public void Set(object item)
+        {
+            instance = item;
+        }
+
+        #endregion
+    }
 }

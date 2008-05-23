@@ -11,48 +11,48 @@
 
 using System;
 using System.Runtime.Serialization;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class NotConcreteRegistrationException : PicoRegistrationException
-	{
-		private Type componentImplementation;
+    [Serializable]
+    public class NotConcreteRegistrationException : PicoRegistrationException
+    {
+        private Type componentImplementation;
 
-		public NotConcreteRegistrationException(Type componentImplementation)
-		{
-			this.componentImplementation = componentImplementation;
-		}
+        public NotConcreteRegistrationException(Type componentImplementation)
+        {
+            this.componentImplementation = componentImplementation;
+        }
 
-		public NotConcreteRegistrationException()
-		{
-		}
+        public NotConcreteRegistrationException()
+        {
+        }
 
-		public NotConcreteRegistrationException(Exception ex) : base(ex)
-		{
-		}
+        public NotConcreteRegistrationException(Exception ex) : base(ex)
+        {
+        }
 
-		public NotConcreteRegistrationException(string message) : base(message)
-		{
-		}
+        public NotConcreteRegistrationException(string message) : base(message)
+        {
+        }
 
-		public NotConcreteRegistrationException(string message, Exception ex) : base(message, ex)
-		{
-		}
+        public NotConcreteRegistrationException(string message, Exception ex) : base(message, ex)
+        {
+        }
 
-		protected NotConcreteRegistrationException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
-		}
+        protected NotConcreteRegistrationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
 
-		public override String Message
-		{
-			get { return "Bad Access: '" + componentImplementation.Name + "' is not instantiable"; }
-		}
+        public override String Message
+        {
+            get { return "Bad Access: '" + componentImplementation.Name + "' is not instantiable"; }
+        }
 
-		public Type ComponentImplementation
-		{
-			get { return componentImplementation; }
-		}
-	}
+        public Type ComponentImplementation
+        {
+            get { return componentImplementation; }
+        }
+    }
 }

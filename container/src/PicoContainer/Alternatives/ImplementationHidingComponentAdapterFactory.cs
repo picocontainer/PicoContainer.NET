@@ -10,38 +10,40 @@
  *****************************************************************************/
 
 using System;
-using PicoContainer;
 using PicoContainer.Defaults;
 
 namespace PicoContainer.Alternatives
 {
-	/// <summary>
-	/// Summary description for ImplementationHidingComponentAdapterFactory.
-	/// </summary>
-	[Serializable]
-	public class ImplementationHidingComponentAdapterFactory : DecoratingComponentAdapterFactory
-	{
-		private readonly bool strict;
+    /// <summary>
+    /// Summary description for ImplementationHidingComponentAdapterFactory.
+    /// </summary>
+    [Serializable]
+    public class ImplementationHidingComponentAdapterFactory : DecoratingComponentAdapterFactory
+    {
+        private readonly bool strict;
 
-		public ImplementationHidingComponentAdapterFactory() : this(new DefaultComponentAdapterFactory(), true)
-		{
-		}
+        public ImplementationHidingComponentAdapterFactory() : this(new DefaultComponentAdapterFactory(), true)
+        {
+        }
 
-		public ImplementationHidingComponentAdapterFactory(IComponentAdapterFactory theDelegate) : this(theDelegate, true)
-		{
-		}
+        public ImplementationHidingComponentAdapterFactory(IComponentAdapterFactory theDelegate)
+            : this(theDelegate, true)
+        {
+        }
 
-		public ImplementationHidingComponentAdapterFactory(IComponentAdapterFactory theDelegate, bool strict) : base(theDelegate)
-		{
-			this.strict = strict;
-		}
+        public ImplementationHidingComponentAdapterFactory(IComponentAdapterFactory theDelegate, bool strict)
+            : base(theDelegate)
+        {
+            this.strict = strict;
+        }
 
-		public override IComponentAdapter CreateComponentAdapter(object componentKey,
-		                                                         Type componentImplementation,
-		                                                         IParameter[] parameters)
-		{
-			return new ImplementationHidingComponentAdapter(base.CreateComponentAdapter(componentKey, componentImplementation, parameters), strict);
-		}
-
-	}
+        public override IComponentAdapter CreateComponentAdapter(object componentKey,
+                                                                 Type componentImplementation,
+                                                                 IParameter[] parameters)
+        {
+            return
+                new ImplementationHidingComponentAdapter(
+                    base.CreateComponentAdapter(componentKey, componentImplementation, parameters), strict);
+        }
+    }
 }

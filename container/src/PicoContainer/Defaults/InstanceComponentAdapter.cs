@@ -1,5 +1,5 @@
 using System;
-using PicoContainer;
+
 /*****************************************************************************
  * Copyright (C) PicoContainer Organization. All rights reserved.            *
  * ------------------------------------------------------------------------- *
@@ -13,23 +13,24 @@ using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class InstanceComponentAdapter : AbstractComponentAdapter
-	{
-		private object componentInstance;
+    [Serializable]
+    public class InstanceComponentAdapter : AbstractComponentAdapter
+    {
+        private object componentInstance;
 
-		public InstanceComponentAdapter(object componentKey, object componentInstance) : base(componentKey, componentInstance.GetType())
-		{
-			this.componentInstance = componentInstance;
-		}
+        public InstanceComponentAdapter(object componentKey, object componentInstance)
+            : base(componentKey, componentInstance.GetType())
+        {
+            this.componentInstance = componentInstance;
+        }
 
-		public override object GetComponentInstance(IPicoContainer container)
-		{
-			return componentInstance;
-		}
+        public override object GetComponentInstance(IPicoContainer container)
+        {
+            return componentInstance;
+        }
 
-		public override void Verify(IPicoContainer container)
-		{
-		}
-	}
+        public override void Verify(IPicoContainer container)
+        {
+        }
+    }
 }

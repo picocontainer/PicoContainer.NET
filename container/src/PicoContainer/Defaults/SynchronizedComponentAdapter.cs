@@ -11,33 +11,32 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using PicoContainer;
 
 namespace PicoContainer.Defaults
 {
-	[Serializable]
-	public class SynchronizedComponentAdapter : DecoratingComponentAdapter
-	{
-		public SynchronizedComponentAdapter(IComponentAdapter theDelegate) : base(theDelegate)
-		{
-		}
+    [Serializable]
+    public class SynchronizedComponentAdapter : DecoratingComponentAdapter
+    {
+        public SynchronizedComponentAdapter(IComponentAdapter theDelegate) : base(theDelegate)
+        {
+        }
 
-		public override object ComponentKey
-		{
-			[MethodImpl(MethodImplOptions.Synchronized)]
-			get { return base.ComponentKey; }
-		}
+        public override object ComponentKey
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            get { return base.ComponentKey; }
+        }
 
-		public override Type ComponentImplementation
-		{
-			[MethodImpl(MethodImplOptions.Synchronized)]
-			get { return base.ComponentImplementation; }
-		}
+        public override Type ComponentImplementation
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            get { return base.ComponentImplementation; }
+        }
 
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public override void Verify(IPicoContainer container)
-		{
-			base.Verify(container);
-		}
-	}
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public override void Verify(IPicoContainer container)
+        {
+            base.Verify(container);
+        }
+    }
 }

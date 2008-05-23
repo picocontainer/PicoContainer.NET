@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * Copyright (C) PicoContainer Organization. All rights reserved.            *
  * ------------------------------------------------------------------------- *
  * The software in this package is published under the terms of the BSD      *
@@ -11,16 +11,16 @@
 
 namespace PicoContainer.Defaults
 {
-	/// <summary>
-	///  A way to refer to objects that are stored in awkward places
-	/// (for example HttpSession).
-	/// <remarks>This is typically implemented by someone integrating Pico into
-	/// an existing container.</remarks> 
-	/// </summary>
-	public interface IObjectReference
-	{
-		object Get();
+    /// <summary>
+    ///  A way to refer to objects that are stored in awkward places
+    /// (for example HttpSession).
+    /// <remarks>This is typically implemented by someone integrating Pico into
+    /// an existing container.</remarks> 
+    /// </summary>
+    public interface IObjectReference
+    {
+        object Get();
 
-		void Set(object item);
-	}
+        void Set(object item);
+    }
 }
